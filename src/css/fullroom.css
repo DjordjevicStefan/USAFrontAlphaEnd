@@ -1,0 +1,11 @@
+.checkBox {
+  width: 30px;
+  border-radius: 5px;
+}
+.checkBox:hover {
+  cursor: pointer;
+}
+
+.quantityInput {
+  width: 50px;
+}

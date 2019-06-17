@@ -1,0 +1,21 @@
+.mainPage {
+  background-color: #eee !important;
+}
+
+.navBox h1 {
+  background-color: #8d98f2;
+  color: #eee;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.build {
+  background-color: #23408e !important;
+}
+
+/* .logo {
+  margin: 30px
+} */
