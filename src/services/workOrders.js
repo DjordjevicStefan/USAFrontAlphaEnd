@@ -73,7 +73,7 @@ export function assignJob(jobId, job, vendor, workorder){
          comment : job.comment,
          workorderId : job.workorderId,
          vendorId : job.vendorId,
-         assignmentDate : job.assignmentDate     
+         assignmentDate : Date(job.assignmentDate)     
       },
       vendor : {
          id : vendor._id ,

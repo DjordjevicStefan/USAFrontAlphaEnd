@@ -40,7 +40,7 @@ const AdminNavbar = props => {
             </Link>
           </li>
           <li className="ml-2 nav-item">
-            <Link onClick={kurac} className="nav-link my-nav-link">
+            <Link onClick={kurac} className="nav-link my-nav-link" to="/">
               Log out
             </Link>
           </li>

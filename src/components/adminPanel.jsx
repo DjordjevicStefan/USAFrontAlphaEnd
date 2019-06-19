@@ -60,9 +60,14 @@ class AdminPanel extends Component {
     let userObj = this.state.users.find(e => {
           return e._id === workorderId;
         });
-    let name = userObj.firstName + " " + userObj.lastName ;
-    return name ;
-  }
+    
+    if (userObj) {
+      let name = userObj.firstName + " " + userObj.lastName ;
+      return name ;
+    }  else {
+       return "user deleted"
+    }  
+}
 
   checkEmpty = () => {
     if (this.state.orders.length === 0) {

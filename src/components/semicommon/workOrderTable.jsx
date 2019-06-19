@@ -7,7 +7,9 @@ export default class workOrderTable extends Component {
     const { users, onDateChange, onVendorChange , calendarTest, vendors, handleId, returnVendorId, onOk } = this.props;
 
     let workorderUser = users.find(x => x._id === workorder.userId);
-    const userName = workorderUser.firstName + "     " + workorderUser.lastName;
+    const userName =  (workorderUser) ?  workorderUser.firstName + "     " + workorderUser.lastName : "user deleted" ;
+
+    // const userName = workorderUser.firstName + "     " + workorderUser.lastName;
 
     return (
       <div>

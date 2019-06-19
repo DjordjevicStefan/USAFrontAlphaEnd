@@ -42,6 +42,9 @@ export default class WorkOrder extends Component {
   //// prvi puca uvek
   handleDateChange = date => {
     const selDate = date;
+    
+    // console.log(Date(date));
+    
 
     const jobId = this.state.jobIdFromDate;
     const jobsArrey = this.state.workorder.jobs.slice();
