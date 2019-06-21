@@ -157,7 +157,7 @@ export default class Items extends Component {
     return (
       <>
         <ToastContainer />
-        <AdminNavbar pageName="Room items" />
+        <AdminNavbar pageName="Master List By Rooms" />
         <TableName tablename="Add,edit and delete items from rooms" />
         <div className="form-container">
           <form>

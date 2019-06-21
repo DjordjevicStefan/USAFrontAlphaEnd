@@ -20,6 +20,8 @@ class Users extends Component {
   async componentDidMount() {
     try {
       const { data: users } = await getAllUsers();
+      console.log(users);
+      
       this.setState({ users: users });
     } catch (error) {
       if (error.status === 400) {
@@ -69,6 +71,17 @@ class Users extends Component {
         <div>
           <AdminNavbar pageName="Users" />
           <TableName tablename="Loading...." />
+          <ToastContainer />
+        </div>
+      );
+    }
+
+    if (users.error) {
+      return (
+        <div>
+          <AdminNavbar pageName="Users" />
+          <TableName tablename="No users available" />
+          {this.newUserRoute()}
           <ToastContainer />
         </div>
       );

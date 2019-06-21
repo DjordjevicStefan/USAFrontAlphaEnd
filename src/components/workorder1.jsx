@@ -10,6 +10,12 @@ class Wo extends Component {
     allItems: {}
     // jobsList: getItemList()
   };
+  handlelogOut() {
+    
+      window.location = `/`;
+    
+  }
+
   saveStateToLocalStorage() {
     const allItems = JSON.parse(localStorage.getItem("allItems"));
     localStorage.setItem("allItems", JSON.stringify(allItems));
@@ -53,6 +59,10 @@ class Wo extends Component {
       JSON.stringify(finalData)
     );
     console.log(data);
+    if(data.statusText === "OK")
+    { 
+     this.handlelogOut()
+   }
   };
   constructor(props) {
     super(props);

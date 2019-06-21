@@ -27,18 +27,18 @@ export default class workOrderTable extends Component {
               <span className="lead font-weight-bold">Time:</span>
             </div>
             <div className="col-sm-3 text-center">
-              <span>
-                <span className="lead">login time :</span>
-                {workorder.loginTime.substring(0, 19)}
+             
+                <span className="lead">login time :</span >
+                <span style={{display: "block"}}> {workorder.loginTime.substring(0, 16)}
               </span>
             </div>
             <div className="col-sm-3 text-center">
-              <span className="lead">CMPL time :</span>
-              <span> {workorder.completedTime.substring(0, 19)} </span>
+              <span className="lead">completed date:</span>
+              <span style={{display: "block"}}> {workorder.completedTime.substring(0, 16)} </span>
             </div>
             <div className="col-sm-3 text-center">
-              <span className="lead">send time :</span>
-              <span> {workorder.sendTime.substring(0, 19)} </span>
+              <span className="lead">sent :</span>
+              <span style={{display: "block"}} > {workorder.sendTime.substring(0, 16)} </span>
             </div>
           </div>
           <div className="row">

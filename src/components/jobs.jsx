@@ -20,6 +20,8 @@ export default class Jobs extends Component {
 
   async componentDidMount() {
     const { data: jobs } = await getJobs();
+    console.log(jobs);
+    
     const { data: vendors } = await getAllVendors();
     const { data : workorders } = await getAllWorkorders();
     this.setState({
@@ -39,6 +41,8 @@ export default class Jobs extends Component {
   }
   
   populateJobsArrey = () => {
+   
+
     const jobs = this.state.jobs ;
     const vendors = this.state.vendors;
     const workorders = this.state.workorders;
@@ -65,6 +69,10 @@ export default class Jobs extends Component {
       );
     }
 
+    
+ 
+
+    
     
 
     return (

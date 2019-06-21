@@ -5,6 +5,14 @@ import _ from "lodash";
 
 const AdminTable = ({ allOrders, status, onChange, onSort, sortColumn, checkEmpty, findUser }) => {
   //// filter orders by state prop
+  if (allOrders.error) {
+    return (
+      <div className="container">
+        <TableName tablename="No work orders in database" />
+      </div>
+    );
+  }
+  
   let filteredOrders = allOrders.filter(order => order.status === status);
 
   //// sorting work oreders /// returns a arrey

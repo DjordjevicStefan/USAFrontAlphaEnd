@@ -26,8 +26,8 @@ export default function JobsTable(props) {
 
            <thead>
              <tr>
-            <th>Building num</th>
-            <th>Apartment num</th>
+            <th>Building number</th>
+            <th>Apartment number</th>
             <th>Vendor</th>
             <th>End Date</th>
           </tr>

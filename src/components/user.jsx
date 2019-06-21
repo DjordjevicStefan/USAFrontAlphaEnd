@@ -62,10 +62,12 @@ class User extends Component {
 
     try {
       const { data: orders } = await getAllWorkorders();
-      if (orders.error) {
-        toast.error(orders.error);
-      }
+      // if (orders.error) {
+      //   toast.error(orders.error);
+      // }
       this.setState({ orders: orders });
+      console.log(orders);
+      
 
 
       const { data } = await getUser(this.props.match.params.id);
@@ -83,6 +85,11 @@ class User extends Component {
   }
 
   getUserWorkOrders = (userId) => {
+     if (this.state.orders.error) {
+        let emptyWoArrey = [] ;
+        return emptyWoArrey ;
+     }
+
     const woArrey = this.state.orders.filter(order => order.user._id === userId);
     return woArrey ;
     

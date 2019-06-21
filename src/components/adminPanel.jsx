@@ -28,6 +28,8 @@ class AdminPanel extends Component {
       this.setState({ users: users });
 
       const { data: orders } = await getAllWorkorders();
+      
+      
       this.setState({ orders: orders });
 
     } catch (error) {
