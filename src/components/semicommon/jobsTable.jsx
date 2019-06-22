@@ -1,9 +1,11 @@
 import React from "react";
 
 export default function JobsTable(props) {
-  const { jobs , jobStateSelect} = props ;
+  const { jobs , jobStateSelect , searchQuery } = props ;
    
-  const filteredJobsArrey = jobs.filter(job => job.status === jobStateSelect);
+  let filteredJobsArrey = jobs.filter(job => job.status === jobStateSelect);
+
+  
  
   if (filteredJobsArrey.length === 0) {
      return ( 
@@ -17,9 +19,20 @@ export default function JobsTable(props) {
       )
   }
 
+   let test = "room"
+
+  //// search implement on arrey
+  let searchedArrey = null ; 
+  if (searchQuery !== "") {
+    searchedArrey = filteredJobsArrey.filter(job => job[test].toLowerCase().startsWith(searchQuery.toLowerCase()) )
+    filteredJobsArrey = searchedArrey ;
+  } else {
+    
+  }
+
   return (
     <>
-      {console.log(filteredJobsArrey)}
+      {console.log( "arrey jobsa" , filteredJobsArrey)}
       {filteredJobsArrey.map(job=> (
           
         <table key={job._id} className="table table-bordered ">

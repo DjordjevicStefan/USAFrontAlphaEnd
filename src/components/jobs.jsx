@@ -7,12 +7,14 @@ import {  ToastContainer } from "react-toastify";
 import AdminNavbar from "./common/adminNavbar";
 import TableName from "./common/tableName";
 import JobsTable from "./semicommon/jobsTable";
+import SearchBox from "./common/searchBox";
 
 
 export default class Jobs extends Component {
   state = {
     vendors : null ,
     jobs: null,
+    searchQuery : "" ,
     jobStateSelect: null,
     workorders : null,
     load: false
@@ -55,6 +57,12 @@ export default class Jobs extends Component {
     })
   }
 
+
+  handleSearch = (query) => {
+    this.setState({
+      searchQuery : query 
+    });
+  }
   
   
 
@@ -69,17 +77,17 @@ export default class Jobs extends Component {
       );
     }
 
-    
- 
-
-    
-    
-
-    return (
+   return (
       <> 
         
         <ToastContainer />
         <AdminNavbar pageName="Jobs" />
+        <div>
+          <SearchBox 
+            value = {this.state.searchQuery}
+            onChange ={this.handleSearch}
+          />
+        </div>
         <div className="container container-bg">
           <form>
             <div className="form-group row">
@@ -95,6 +103,7 @@ export default class Jobs extends Component {
           </form>
           {(this.state.jobStateSelect === "by jobs status" || this.state.jobStateSelect === null ) ? null : 
           <JobsTable 
+             searchQuery = {this.state.searchQuery}
              jobStateSelect={this.state.jobStateSelect}
              jobs={this.state.jobs}
              vendors ={this.state.vendors}
