@@ -6,10 +6,10 @@ class VendorForm extends Component {
   // state = {};
    render() {
     const {
-      firstName,
+      name,
       onChange,
       onBack,
-      lastName,
+      phone,
       email,
       onSubmit,
       profession,
@@ -25,17 +25,17 @@ class VendorForm extends Component {
          
             <form onSubmit={onSubmit} className="form-css">
               <Input  
-                error={error.firstName}
-                label="First name"
-                name="firstName"
-                value={firstName}
+                error={error.name}
+                label="Name"
+                name="name"
+                value={name}
                 onChange={onChange}
               />
                <Input
-                error={error.lastName}
-                label="Last name"
-                name="lastName"
-                value={lastName}
+                error={error.phone}
+                label="Phone number"
+                name="phone"
+                value={phone}
                 onChange={onChange}
               />
                <Input

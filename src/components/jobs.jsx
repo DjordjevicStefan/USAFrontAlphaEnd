@@ -15,6 +15,8 @@ export default class Jobs extends Component {
     vendors : null ,
     jobs: null,
     searchQuery : "" ,
+    searchOption : "name",
+    options : [ "name" , "room" ] ,
     jobStateSelect: null,
     workorders : null,
     load: false
@@ -63,6 +65,12 @@ export default class Jobs extends Component {
       searchQuery : query 
     });
   }
+
+  handleOptionsSearch = (e) => {
+    this.setState({
+      searchOption : e.target.value
+    })
+  }
   
   
 
@@ -84,6 +92,8 @@ export default class Jobs extends Component {
         <AdminNavbar pageName="Jobs" />
         <div>
           <SearchBox 
+            options ={this.state.options}
+            onOptionChange ={this.handleOptionsSearch}
             value = {this.state.searchQuery}
             onChange ={this.handleSearch}
           />
@@ -103,6 +113,7 @@ export default class Jobs extends Component {
           </form>
           {(this.state.jobStateSelect === "by jobs status" || this.state.jobStateSelect === null ) ? null : 
           <JobsTable 
+             searchOption={this.state.searchOption}
              searchQuery = {this.state.searchQuery}
              jobStateSelect={this.state.jobStateSelect}
              jobs={this.state.jobs}

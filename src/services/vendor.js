@@ -21,21 +21,19 @@ export function saveVendor(vendor) {
       `http://localhost:3500/admin/newVendor`,
       qs.stringify({
         email: vendor.email,
-        firstName: vendor.firstName,
-        lastName: vendor.lastName, 
+        name: vendor.name,
+        phone : vendor.phone, 
         profession: vendor.profession
       })
     );
   }
 
-  console.log("ovde sam");
-
   return http.post(
     `http://localhost:3500/admin/editVendor/${vendor._id}`,
     qs.stringify({
       email: vendor.email,
-      firstName: vendor.firstName,
-      lastName: vendor.lastName,
+      name: vendor.name,
+      phone : vendor.phone, 
       profession: vendor.profession
     })
   );

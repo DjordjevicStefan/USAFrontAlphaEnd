@@ -14,11 +14,11 @@ export class Vendor extends Component {
    state = {
      vendor : {
        _id : "",
-       firstName : "" ,
-       lastName : "" ,
+       name : "" ,
        email : "" ,
        profession : "",
-       calendar : []
+       calendar : [],
+       phone : "" 
      },
      load : false,
      errors : {}
@@ -26,18 +26,15 @@ export class Vendor extends Component {
 
     //// schema for input check but only on submit form btn click
   schema = Joi.object().keys({ 
-    firstName: Joi.string()
+    name: Joi.string()
       .required()
-      .label("First name"),
-    lastName: Joi.string()
-      .required()
-      .label("Last name"),
-      email: Joi.string()
+      .label("Name"),
+    email: Joi.string()
       .email()
       .required(),
     profession : Joi.string()
     .required()
-    .label("Last name") 
+    .label("Profession") 
   });
 
 
@@ -60,28 +57,12 @@ export class Vendor extends Component {
             vendor: vendor,
             load: true
       }));
-    // try {
-    //   const { data: orders } = await getAllWorkorders();
-    //   if (orders.error) {
-    //     toast.error(orders.error);
-    //   }
-    //   this.setState({ orders: orders });
-
-
-    //   const { data } = await getUser(this.props.match.params.id);
-    //   this.setState(() => ({
-    //     user: data.user,
-    //     load: true
-    //   }));
-    // } catch (error) {
-    //   if (error.status === 400 || error.status) {
-    //     toast.error("database error!");
-    //   }
-    // }
+  
   }
    
   //// uradi back sa logikom na refresh stranice
   handleBack = () => {
+    
     this.props.history.goBack() ;
     // this.props.history.push("/admin");
   }
@@ -107,11 +88,12 @@ export class Vendor extends Component {
     //// new user submit or edit old one
     const result = await saveVendor(this.state.vendor);
 
-    if (result.data.success) {
-      // console.log("otkinuo submit na back dugme forme");
+    // console.log( "da li je prosao edit" , result.data.success);
+    
 
+    if (result.data.success) {
       this.handleBack();
-    }
+   }
     if (result.data.error) {
       toast.error(result.data.error);
     }
@@ -124,6 +106,7 @@ export class Vendor extends Component {
     delete vendorCopy._id;
     delete vendorCopy.__v;
     delete vendorCopy.calendar;
+    delete vendorCopy.phone;
 
     const result = Joi.validate(vendorCopy, this.schema, { abortEarly: false });
     if (!result.error) return null;
@@ -152,7 +135,7 @@ export class Vendor extends Component {
       );
     }
     
-    const {email, firstName, lastName, profession, _id : id} = this.state.vendor ;
+    const {email, name, profession, _id : id , phone} = this.state.vendor ;
     
 
     return (
@@ -162,15 +145,15 @@ export class Vendor extends Component {
           pageName={
             this.props.match.params.id === "new"
               ? "New user"
-              : firstName + " " + lastName
+              : name
           }
         />
 
        <VendorForm
           id={id}
           error={this.state.errors}
-          firstName={firstName}
-          lastName={lastName}
+          phone ={phone}
+          name={name}
           email={email}
           profession={profession}
           onChange={this.handleInputChange}

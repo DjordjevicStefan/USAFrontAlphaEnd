@@ -25,6 +25,15 @@
 
 /* custom bootstrap colors and mine custom bootstrpa css  */
 
+.reset-right-padding {
+  padding-right:  0 !important ;
+}
+
+.pagination-custom {
+  margin-bottom:  0 ;
+  box-shadow: 0 3px 3px black;
+}
+
 .login {
   padding: 30px;
   background-color: #eeeeee;
@@ -180,6 +189,10 @@
 }
 
 /* custom navbar links  */
+
+.clicableA {
+  cursor: pointer ;
+}
 
 .my-nav a:hover, a:active {
   color: #ffff74 ;
