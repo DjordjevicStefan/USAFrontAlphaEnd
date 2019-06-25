@@ -5,6 +5,10 @@ export default function Pagination({ somethingPerPage, total , paginate }) {
   for (let index = 1; index <= Math.ceil(total / somethingPerPage); index++) {
     pageNumber.push(index);
   }
+  
+  console.log(total);
+  console.log(pageNumber);
+  
 
   return (
     

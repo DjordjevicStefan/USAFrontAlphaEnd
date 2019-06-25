@@ -17,6 +17,8 @@ export function saveVendor(vendor) {
   console.log(vendor);
 
   if (vendor._id === "") {
+    console.log("ovde sam");
+    
     return http.post(
       `http://localhost:3500/admin/newVendor`,
       qs.stringify({

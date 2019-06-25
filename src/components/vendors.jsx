@@ -181,8 +181,10 @@ class Vendors extends Component {
               ))}
               <tr>
                  <td colSpan="4">
+                
            <Pagination 
-                 total={vendors.length} 
+                 
+                 total={  (searchQuery !== "") ? searchedArrey.length : vendors.length} 
                  somethingPerPage={this.state.vendorsPerPage}
                  paginate ={this.handlePaginate}
            /> 
