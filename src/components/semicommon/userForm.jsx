@@ -6,10 +6,9 @@ class UserForm extends Component {
   // state = {};
    render() {
     const {
-      firstName,
+      name,
       onChange,
       onBack,
-      lastName,
       region,
       password,
       email,
@@ -20,28 +19,23 @@ class UserForm extends Component {
         
     } = this.props;
 
-   
+    
 
     return (
+      
       <div>
         <div className="form-container">
           <div>
          
             <form onSubmit={onSubmit} className="form-css" >
               <Input  
-                error={error.firstName}
-                label="First name"
-                name="firstName"
-                value={firstName}
+                error={error.name}
+                label="Name"
+                name="name"
+                value={name}
                 onChange={onChange}
               />
-               <Input
-                error={error.lastName}
-                label="Last name"
-                name="lastName"
-                value={lastName}
-                onChange={onChange}
-              />
+              
                <Input
                error={error.password}
                 label="Password"

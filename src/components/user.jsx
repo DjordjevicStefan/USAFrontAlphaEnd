@@ -20,8 +20,7 @@ class User extends Component {
       email: "",
       password: "",
       emailPassword: "",
-      firstName: "",
-      lastName: "",
+      name: "",
       region: ""
       // __v : 0
     },
@@ -41,12 +40,9 @@ class User extends Component {
     emailPassword: Joi.string()
       .required()
       .label("Email Password"),
-    firstName: Joi.string()
+    name: Joi.string()
       .required()
-      .label("First name"),
-    lastName: Joi.string()
-      .required()
-      .label("Last name"),
+      .label("Name"),
     region: Joi.string()
       .required()
       .label("Region")
@@ -66,13 +62,11 @@ class User extends Component {
       //   toast.error(orders.error);
       // }
       this.setState({ orders: orders });
-      console.log(orders);
+      // console.log(orders);
       
 
 
       const { data } = await getUser(this.props.match.params.id);
-      
-      
       this.setState(() => ({
         user: data.user,
         load: true
@@ -138,16 +132,20 @@ class User extends Component {
   //// submit , create new user or edit one
   handleSubmit = async e => {
     e.preventDefault();
+    
+    
 
     const errors = this.validate();
     this.setState({ errors: errors || {} });
+    
     if (errors) return;
 
     //// new user submit or edit old one
     const result = await saveUser(this.state.user);
+       
 
     if (result.data.success) {
-      // console.log("otkinuo submit na back dugme forme");
+      console.log("otkinuo submit na back dugme forme");
 
       this.handleBack();
     }
@@ -162,6 +160,7 @@ class User extends Component {
 
     delete userCopy._id;
     delete userCopy.__v;
+    delete userCopy.status;
 
     const result = Joi.validate(userCopy, this.schema, { abortEarly: false });
     if (!result.error) return null;
@@ -186,8 +185,7 @@ class User extends Component {
     }
 
     const {
-      firstName,
-      lastName,
+      name,
       email,
       password,
       region,
@@ -202,7 +200,7 @@ class User extends Component {
           pageName={
             this.props.match.params.id === "new"
               ? "New user"
-              : firstName + " " + lastName
+              : name
           }
         />
 
@@ -220,8 +218,7 @@ class User extends Component {
           id={id}
           error={this.state.errors}
           emailPassword={emailPassword}
-          firstName={firstName}
-          lastName={lastName}
+          name={name}
           email={email}
           password={password}
           region={region}

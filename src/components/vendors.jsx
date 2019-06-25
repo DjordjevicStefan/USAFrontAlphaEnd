@@ -26,8 +26,12 @@ class Vendors extends Component {
       toast.error("Database error!");
       return;
     }
+    
+    const vendors = response.data.filter(vendor => (
+      vendor.status === "active"
+    ));
 
-    const vendors = response.data;
+
     this.setState(() => ({
       vendors: vendors,
       load: true
@@ -48,7 +52,7 @@ class Vendors extends Component {
     } else {
          return ;
     }
-    const response  = await deleteVendor(vendorX._id);
+    const response  = await deleteVendor(vendorX);
 
     if (response.data.error) {
           toast.error(response.data.error);

@@ -21,8 +21,12 @@ class Users extends Component {
     try {
       const { data: users } = await getAllUsers();
       console.log(users);
-      
-      this.setState({ users: users });
+
+      const usersActive = users.filter(user => (
+        user.status === "active"
+      ));
+      this.setState({ users: usersActive });
+
     } catch (error) {
       if (error.status === 400) {
         toast.error("database error!");
@@ -35,7 +39,7 @@ class Users extends Component {
   hadnleDeleteUser = async (userX) =>  {
     const usersCopy = {...this.state.users} ;
 
-    let yesNo = window.confirm(`Are you sure you wont to delete ${userX.firstName} ${userX.lastName} ?`)
+    let yesNo = window.confirm(`Are you sure you wont to delete ${userX.name}  ?`)
      
     if (yesNo === true) {
       let users = this.state.users.filter(user => user._id !== userX._id);
@@ -44,7 +48,7 @@ class Users extends Component {
          return ;
     }
    
-    const response  = await deleteUser(userX._id);
+    const response  = await deleteUser(userX);
       // console.log(response);
 
       if (response.data.error) {
@@ -118,7 +122,7 @@ class Users extends Component {
                 <td>
                   <Link to={`/admin/users/${user._id}`} className="mdc-button btn-sm btn">Select</Link>
                 </td>
-                <td>{user.firstName + " " + user.lastName}</td>
+                <td>{user.name}</td>
                 <td>{user.region}</td>
                 <td>
                   <button  onClick={() => this.hadnleDeleteUser(user)} className="btn-sm btn btn-danger">Delete</button>

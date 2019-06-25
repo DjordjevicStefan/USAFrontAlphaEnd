@@ -107,6 +107,7 @@ export class Vendor extends Component {
     delete vendorCopy.__v;
     delete vendorCopy.calendar;
     delete vendorCopy.phone;
+    delete vendorCopy.status;
 
     const result = Joi.validate(vendorCopy, this.schema, { abortEarly: false });
     if (!result.error) return null;

@@ -49,31 +49,45 @@ export function getUser(id) {
 }
 
 export function saveUser(user) {
+  console.log(user);
+
   if (user._id === "") {
+     
+    console.log(user);
     
+
     return http.post(`http://localhost:3500/admin/newUser`, qs.stringify({
     email: user.email,
     password: user.password,
     emailPassword: user.emailPassword,
-    firstName: user.firstName,
-    lastName: user.lastName,
-    region: user.region
+    name : user.name,
+    region: user.region,
+    status : "active"
 })) ;
   } 
+
+  
   return http.post(`http://localhost:3500/admin/editUser/${user._id}`, qs.stringify({
       email: user.email,
       password: user.password,
       emailPassword: user.emailPassword,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      region: user.region
+      name : user.name,
+      region: user.region,
+      status : "active"
   })) ;
  
 }
 
-export function deleteUser(userId) { 
+export function deleteUser(user) { 
   
-  return http.post(`http://localhost:3500/admin/users/${userId}` ) ;
+  return http.post(`http://localhost:3500/admin/editUser/${user._id}`, qs.stringify({
+    email: user.email,
+    password: user.password,
+    emailPassword: user.emailPassword,
+    name : user.name,
+    region: user.region,
+    status : "disabled"
+})) ;
 
 }
 
