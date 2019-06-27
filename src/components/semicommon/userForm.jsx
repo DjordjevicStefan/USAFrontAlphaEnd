@@ -9,7 +9,7 @@ class UserForm extends Component {
       name,
       onChange,
       onBack,
-      region,
+      onRegionChange,
       password,
       email,
       onSubmit,
@@ -58,14 +58,18 @@ class UserForm extends Component {
                 value={emailPassword}
                 onChange={onChange}
               />
-               <Input
-                error={error.region}
-                label="Region"
-                name="region"
-                value={region}
-                onChange={onChange}
-                
-              />
+              <div className="form-group row">
+              <label className="col-sm-2 col-form-label" >
+                    <span>{(id==="") ? "Region :" : "Select new region" }</span>
+              </label>
+               <div className="col-sm-10">
+                 <select onChange={onRegionChange} className="form-control">
+                 <option>Los Angeles</option>
+                 <option>Valley</option>
+                 <option>West Los Angeles</option>
+                 </select>
+                 </div> 
+              </div>
 
 
               <div className="row">

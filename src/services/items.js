@@ -14,7 +14,8 @@ export function saveNewItem(item) {
       name : item.name ,
       subCategory : item.subCategory,
       room : item.room ,
-      price : item.price
+      price : item.price,
+      link : item.link
   }) ) ;
 }
 
@@ -27,7 +28,8 @@ export function editItem(item) {
       name : item.name ,
       subCategory : item.subCategory,
       room : item.room ,
-      price : item.price
+      price : item.price,
+      link : item.link
   }) ) ;
 }
 

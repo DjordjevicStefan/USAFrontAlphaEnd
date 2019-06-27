@@ -21,7 +21,7 @@ class User extends Component {
       password: "",
       emailPassword: "",
       name: "",
-      region: ""
+      region: "Los Angeles"
       // __v : 0
     },
     errors: {},
@@ -42,10 +42,7 @@ class User extends Component {
       .label("Email Password"),
     name: Joi.string()
       .required()
-      .label("Name"),
-    region: Joi.string()
-      .required()
-      .label("Region")
+      .label("Name")  
   });
 
   //// fetch user data from database
@@ -165,6 +162,7 @@ class User extends Component {
     delete userCopy._id;
     delete userCopy.__v;
     delete userCopy.status;
+    delete userCopy.region;
 
     const result = Joi.validate(userCopy, this.schema, { abortEarly: false });
     if (!result.error) return null;
@@ -176,6 +174,15 @@ class User extends Component {
 
     return errors;
   };
+
+  handleRegionChange = (e) => {
+    let selectedRegion = e.target.value;
+    let user = this.state.user ;
+    user.region = selectedRegion ;
+    this.setState({
+      user : user 
+    })
+  }
 
   render() {
     if (this.state.load === false) {
@@ -225,7 +232,7 @@ class User extends Component {
           name={name}
           email={email}
           password={password}
-          region={region}
+          onRegionChange={this.handleRegionChange}
           onChange={this.handleInputChange}
           onBack={this.handleBack}
           onSubmit={this.handleSubmit}

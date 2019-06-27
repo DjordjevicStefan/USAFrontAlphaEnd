@@ -80,7 +80,9 @@ class Users extends Component {
       );
     }
 
-    if (users.error) {
+   
+
+    if (users === []) {
       return (
         <div>
           <AdminNavbar pageName="Users" />
