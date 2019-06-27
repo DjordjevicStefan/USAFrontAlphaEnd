@@ -5,10 +5,11 @@ import TableName from "./common/tableName";
 import WorkOrderTable from "../components/semicommon/workOrderTable";
 
 import { getAllVendors } from "../services/vendor";
-import { getWorkOrder, assignJob } from "../services/workOrders";
+import { getWorkOrder, assignJob , endJob } from "../services/workOrders";
 import getAllUsers from "../services/users";
 
 import { toast, ToastContainer } from "react-toastify";
+import { async } from "q";
 
 export default class WorkOrder extends Component {
   state = {
@@ -41,7 +42,12 @@ export default class WorkOrder extends Component {
 
   //// prvi puca uvek
   handleDateChange = date => {
-    const selDate = date;
+    const selDate = date ;
+
+    
+    // console.log(typeof selDate);
+    // console.log("obican string",selDate.toString());
+    // console.log("to iso string",selDate.toLocaleDateString());
     
     // console.log(Date(date));
     
@@ -54,7 +60,7 @@ export default class WorkOrder extends Component {
     // console.log("filterovan arrey" , editDate);
 
     editDate[0].assignmentDate = selDate;
-    // console.log("dodat datum" , editDate[0]);
+    console.log("dodat datum" , editDate[0]);
 
     const workorderCopy = { ...this.state.workorder };
     workorderCopy.jobs = jobsArrey;
@@ -168,6 +174,12 @@ export default class WorkOrder extends Component {
    
   }
 
+  test = async () => {
+   const testtt = await  endJob("5d14e18e8bc89c5498bb3b8c") ;
+   console.log(testtt);
+   
+  }
+
   render() {
     const { load } = this.state;
 
@@ -185,6 +197,7 @@ export default class WorkOrder extends Component {
       <div>
         <AdminNavbar pageName="Work order" />
         <ToastContainer />
+        <button onClick={this.test}>Test</button>
         <WorkOrderTable
           workorder={this.state.workorder}
           users={this.state.users}

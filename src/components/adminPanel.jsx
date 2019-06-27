@@ -64,7 +64,7 @@ class AdminPanel extends Component {
         });
     
     if (userObj) {
-      let name = userObj.firstName + " " + userObj.lastName ;
+      let name = userObj.name ;
       return name ;
     }  else {
        return "user deleted"

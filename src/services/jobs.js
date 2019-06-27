@@ -1,6 +1,6 @@
 import http from "./httpService" ;
 
-export function getJobs(id) {
+export function getJobs() {
   return http.get(`http://localhost:3500/admin/jobs`)
 }
 

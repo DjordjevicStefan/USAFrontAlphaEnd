@@ -10,10 +10,10 @@ class ModalMy extends Component {
   render() {
 
     const {onShowModal,isOpen,onClose,user, workOrders} = this.props ;
-    const firstName = user.firstName ;  
-    const lastName = user.lastName ;    
+    const name = user.name ;  
+       
 
-    console.log(workOrders);
+    // console.log(workOrders);
      
 
 
@@ -26,12 +26,12 @@ class ModalMy extends Component {
          </div>
         <Modal  show={isOpen} onHide={onClose}>
           <Modal.Header className="mHeader" closeButton>
-            <Modal.Title>{firstName+" "+lastName +" work orders"}</Modal.Title>
+            <Modal.Title>{name +" Workorders"}</Modal.Title>
           </Modal.Header>
           <Modal.Body>{
              <>
                 {workOrders.map(order => 
-                <div className="row">
+                <div key={order._id} className="row">
                   <div className="col-sm-4"> <Link to={`/admin/workorder/${order._id}`}>
                   Open workorder  </Link> </div>
                   <div className="col-sm-4">Building num : {order.buildingNumber}</div>

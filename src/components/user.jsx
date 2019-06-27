@@ -58,10 +58,11 @@ class User extends Component {
 
     try {
       const { data: orders } = await getAllWorkorders();
-      // if (orders.error) {
-      //   toast.error(orders.error);
-      // }
-      this.setState({ orders: orders });
+      const onlyWoWithoutSaved = orders.filter(order => (
+         order.status !== "saved" 
+      ) ) ;
+
+      this.setState({ orders: onlyWoWithoutSaved });
       // console.log(orders);
       
 
@@ -83,6 +84,9 @@ class User extends Component {
         let emptyWoArrey = [] ;
         return emptyWoArrey ;
      }
+
+    console.log("wo",this.state.orders);
+     
 
     const woArrey = this.state.orders.filter(order => order.user._id === userId);
     return woArrey ;
