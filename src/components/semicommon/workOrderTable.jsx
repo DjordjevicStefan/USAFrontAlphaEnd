@@ -25,7 +25,7 @@ export default class workOrderTable extends Component {
 
   render() {
     const { workorder, jobs } = this.props.workorder;
-    const { users, onDateChange, onVendorChange , calendarTest, vendors, handleId, returnVendorId, onOk } = this.props;
+    const { users, onDateChange, onVendorChange , calendarTest, vendors, handleId, returnVendorId, onOk, okTriger } = this.props;
 
     let workorderUser = users.find(x => x._id === workorder.userId);
     const userName =   workorderUser.name ;
@@ -87,6 +87,7 @@ export default class workOrderTable extends Component {
              handleId={handleId}
              returnVendorId={returnVendorId}
              onOk = {onOk}
+             okTriger ={okTriger}
           />
 
         </div>

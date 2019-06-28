@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { getAllVendors } from "../services/vendor";
 import { getJobs, getAllWorkorders } from "../services/jobs";
 import {  ToastContainer } from "react-toastify";
+import {endJob} from "../services/workOrders" ;
 
 import AdminNavbar from "./common/adminNavbar";
 import TableName from "./common/tableName";
@@ -24,7 +25,7 @@ export default class Jobs extends Component {
 
   async componentDidMount() {
     const { data: jobs } = await getJobs();
-    console.log(jobs);
+    
     
     const { data: vendors } = await getAllVendors();
     const { data : workorders } = await getAllWorkorders();
@@ -71,8 +72,17 @@ export default class Jobs extends Component {
       searchOption : e.target.value
     })
   }
+
+  handleFinish = async (id) => {
+     const response = await endJob(id) ;
+     console.log(response);
+     
+     
+  }
   
-  
+  print = () => {
+    window.print();
+  }
 
   render() {
     if (this.state.load === false) {
@@ -107,6 +117,7 @@ export default class Jobs extends Component {
                    <option>By jobs status</option>
                   <option value="pending">Pending</option>
                   <option value="sent">Sent</option>
+                  <option value="finished">Finished</option>
                 </select>
               </div>
             </div>
@@ -118,11 +129,13 @@ export default class Jobs extends Component {
              jobStateSelect={this.state.jobStateSelect}
              jobs={this.state.jobs}
              vendors ={this.state.vendors}
+             onFinish ={this.handleFinish}
           /> }
            
-         
+           <div className="float-right"> <button onClick={this.print} className="btn btn-sm mdc-button print-btn"> Print page </button> </div>
 
         </div>
+        
       </>
     );
   }

@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function JobsTable(props) {
-  const { jobs , jobStateSelect , searchQuery , searchOption } = props ;
+  const { jobs , jobStateSelect , searchQuery , searchOption , onFinish } = props ;
    
   let filteredJobsArrey = jobs.filter(job => job.status === jobStateSelect);
 
@@ -32,32 +32,37 @@ export default function JobsTable(props) {
 
   return (
     <>
-      {console.log( "arrey jobsa" , filteredJobsArrey)}
+      
       {filteredJobsArrey.map(job=> (
           
         <table key={job._id} className="table table-bordered ">
 
            <thead>
-             <tr>
+             <tr className="text-left">
             <th>Building number</th>
             <th>Apartment number</th>
             <th>Vendor</th>
-            <th>End Date</th>
+            <th>Assignment Date</th>
           </tr>
            </thead>
            <tbody>
-           <tr>
+           <tr className="text-left">
              <td>{job.workorder.buildingNumber}</td>
              <td>{job.workorder.apartmentNumber}</td>
-             <td>{(job.vendor) ?  job.vendor.firstName +" " + job.vendor.lastName : "not selected or deleted"}</td>
+             <td>{(job.vendor) ?  job.vendor.name  : "not selected or deleted"}</td>
              <td>{(job.assignmentDate === null || job.assignmentDate === "" ) ?  "not assigned" : job.assignmentDate.substring(0, 19)} </td>
            </tr>
-           <tr className="table-border-bottom">
-             <th>Room: <span className="font-weight-normal"> {job.room} </span></th>
-             <th>Name: <span className="font-weight-normal"> {job.name} </span></th>
-             <th>Price: <span className="font-weight-normal"> {job.price} </span></th>
-             <th>Quantity: <span className="font-weight-normal"> {job.quantity} </span></th>
+           <tr className={ (job.vendor) ? "" : "table-border-bottom"}>
+             <th colSpan="4">Room: <span className="font-weight-normal mr-5"> {job.room} </span>
+             Name: <span className="font-weight-normal mr-5"> {job.name} </span>
+             Price: <span className="font-weight-normal mr-5"> {job.price} </span>
+             Quantity: <span className="font-weight-normal mr-5"> {job.quantity} </span>
+             {(job.endDate !== "") ?  <span className="font-weight-normal"> <span className="font-weight-bold">End date:</span>  <span className="endDate">{job.endDate}</span></span> : null }</th>
            </tr>
+           {(job.vendor && (job.endDate === "") ) ? <tr className={ (job.vendor ) ? "table-border-bottom" : null}>
+               <th colSpan="3">Finish job : </th>
+               <th colSpan="1"> <button className="btn btn-sm mdc-button" onClick={()=>onFinish(job._id)}>finish</button> </th>
+            </tr> : null }
            </tbody>
            </table>
 

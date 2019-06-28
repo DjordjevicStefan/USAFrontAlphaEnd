@@ -3,7 +3,7 @@ import DatePicker from "react-datepicker";
 import _ from "lodash" ;
 
 export default function WorkOrderJobs(props) {
-  const { jobs, onDateChange, onVendorChange , vendors, handleId, onOk, searchOption, searchQuery } = props;
+  const { jobs, onDateChange, onVendorChange , vendors, handleId, onOk, searchOption, searchQuery , okTriger } = props;
    
   let sortJobs = _.orderBy(jobs, ['name'],['asc']) ;
 
@@ -16,11 +16,11 @@ export default function WorkOrderJobs(props) {
     
   }
   
-  console.log();
+ 
 
   const sortVendors = _.orderBy(vendors, ['profession'],['asc']) ;
   
-  console.log(sortJobs);
+  console.log("jobs arrey",sortJobs);
   
 
   return (
@@ -55,24 +55,31 @@ export default function WorkOrderJobs(props) {
 
             <tr>
               <th id={job._id}>
+                
                 Select vendor:
-                <select  onChange={onVendorChange} className="form-control form-control-sm">
+               
+                  <select  onChange={onVendorChange} className="form-control form-control-sm">
                   <option value="">Select vendor</option>
                   {sortVendors.map(vendor=> (
                     <option value={vendor._id} key={vendor._id}> {`Name: ${vendor.name} | ` } { `Profession: ${vendor.profession}`   } </option>
                   ))}
                 </select>
+              
+                
               </th>
               <th>
                 Pick start date:
                 <div onClick={() => handleId(job._id)} className="btn-dsp-block">
-                  
-                  <DatePicker
-                    selected = {job.assignmentDate}
-                    placeholderText="Click to select a date"
+                 
+                  <input 
+                    type="date"
+                    // disabled ={(job.assignmentDate !== "" ) ? true : false}
+                    value = {job.assignmentDate}
                     onChange={onDateChange}
                     className="form-control form-control-sm"
-                  />
+                  /> 
+
+                 
                 </div>
               </th>
               <th>

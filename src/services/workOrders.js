@@ -32,7 +32,8 @@ export function assignJob(jobId, job, vendor, workorder){
   console.log( "wo as" , workorder);
   console.log( "job as" , job);
   console.log( "jvendor as" , vendor);
-  console.log("date formatiran" , job.assignmentDate.toLocaleDateString());
+  console.log("date" , typeof job.assignmentDate);
+  console.log("date" , job.assignmentDate);
   
 
 

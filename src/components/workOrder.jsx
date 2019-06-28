@@ -42,13 +42,14 @@ export default class WorkOrder extends Component {
       workorder: workorder,
       vendors: vendorsWithoutDisabled,
       users: users,
+      okTriger : false ,
       load: true
     }));
   }
 
   //// prvi puca uvek
-  handleDateChange = date => {
-    const selDate = date ;
+  handleDateChange = (e) => {
+    const selDate = e.target.value ;
 
     
     // console.log(typeof selDate);
@@ -115,6 +116,20 @@ export default class WorkOrder extends Component {
   };
 
   handleOkButton = async (e, id) => {
+
+    let yesNo = window.confirm(`Are you sure you assigned the correct date and vendor for this job?`)
+     
+    if (yesNo === false) {
+      return ;
+    } else {
+        
+    }
+    
+    this.setState({
+      okTriger : true
+    })
+
+
     const clickBtnId = id;
 
     //// check if vendor and date is selected
@@ -131,7 +146,7 @@ export default class WorkOrder extends Component {
     const workorder = this.state.workorder.workorder;
     const job = jobsArrey.find(job => job._id === clickBtnId);
 
-    console.log(job);
+    
 
     let selVendorId = null;
     const vendorObj = checkArrey.find(job => job.jobId === clickBtnId);
@@ -210,6 +225,7 @@ export default class WorkOrder extends Component {
           vendors={this.state.vendors}
           returnVendorId={this.handleVendorId}
           onOk={this.handleOkButton}
+          okTriger={this.state.okTriger}
         />
       </div>
     );

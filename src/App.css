@@ -26,11 +26,11 @@
 /* custom bootstrap colors and mine custom bootstrpa css  */
 
 .reset-right-padding {
-  padding-right:  0 !important ;
+  padding-right: 0 !important ;
 }
 
 .pagination-custom {
-  margin-bottom:  0 ;
+  margin-bottom: 0;
   box-shadow: 0 3px 3px black;
 }
 
@@ -45,17 +45,16 @@
   color: #5a6abf;
 }
 
-
 .th-text-align {
-  text-align: -webkit-center ;
+  text-align: -webkit-center;
 }
 
 .reset-mb {
-  margin-bottom:  0  !important;
+  margin-bottom: 0 !important;
 }
 
 .form-items {
-  margin-top: 0.8rem ;
+  margin-top: 0.8rem;
 }
 
 .padding-b {
@@ -63,88 +62,94 @@
   /* padding-top: 1rem  !important; */
 }
 
-
 .item-table-show {
-  display: none ;
+  display: none;
 }
 
 .error-row {
-  margin-left: auto ;
-  margin-right: auto ;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.form-adj{
-  margin-top: -0.8rem ;
-  
+.form-adj {
+  margin-top: -0.8rem;
 }
 
 .form-adj-last {
-  margin-bottom: 0 ;
+  margin-bottom: 0;
 }
 
 .my-nav {
-  background-color:  #26418f !important ;
+  background-color: #26418f !important ;
 }
 
 .my-nav-link {
-  color: #ffffff ;
+  color: #ffffff;
 }
 
 .logo-color {
-  color : #ffff74 ;
+  color: #ffff74;
 }
 
 .jumbotron {
-  max-height: 7rem ;
-  padding: 0 ;
+  max-height: 7rem;
+  padding: 0;
   padding-bottom: 5px;
-  background-color:  #5C6BC0 ;
-  color: #ffffff ;
+  background-color: #5c6bc0;
+  color: #ffffff;
 }
 
-.table-name{
-  background-color:  #EEEEEE ;
-  text-align: center ;
-  font-size:  2rem ;
+.table-name {
+  background-color: #eeeeee;
+  text-align: center;
+  font-size: 2rem;
 }
 
 .click-th {
-  cursor: pointer ;
+  cursor: pointer;
 }
 
 .container-bg {
-  background-color: #EEEEEE ;
+  background-color: #eeeeee;
 }
 
-.form-container{
-  width: 70vw ;
-  background-color: #EEEEEE ;
-  color:  black ;
-  height:  auto ;
-  margin:  0 auto ;
-  padding-top:  1rem ;
+.endDate {
+  color: red;
 }
 
-.form-css{
-  margin-bottom: -1rem ;
+.form-container {
+  width: 70vw;
+  background-color: #eeeeee;
+  color: black;
+  height: auto;
+  margin: 0 auto;
+  padding-top: 1rem;
+}
+
+.form-css {
+  margin-bottom: -1rem;
 }
 
 .border-b {
-  border-bottom : 2px solid black ;
+  border-bottom: 2px solid black;
+}
+
+.print-btn {
+  margin-bottom: 1.5rem ;
 }
 
 .table-border-bottom {
-  border-bottom : 0.8rem solid black;
-  box-shadow:0px 2px 2px black;
+  border-bottom: 0.8rem solid black;
+  box-shadow: 0px 2px 2px black;
 }
 
 .div-status {
-  width: 0.5rem ;
-  height:  0.5rem; 
+  width: 0.5rem;
+  height: 0.5rem;
 }
 
 .green-status {
-  color: #08e22c ;
+  color: #08e22c;
 }
 
 .padding-jobs {
@@ -154,56 +159,52 @@
 /* custom buttons  */
 
 .btn-line-hight {
-  line-height:  0 !important ;
+  line-height: 0 !important ;
 }
 
 .mdc-button {
-  background-color: #FFD740;
-      color: #000000;
+  background-color: #ffd740;
+  color: #000000;
 }
 
-
-
-.btn-table-end{
-  background-color:  #5C6BC0 ;
-  color: #ffffff ;
-  border-radius: 5px ;
-  height: 2rem ;
+.btn-table-end {
+  background-color: #5c6bc0;
+  color: #ffffff;
+  border-radius: 5px;
+  height: 2rem;
   text-align: center;
-  line-height: 2rem ;
+  line-height: 2rem;
 }
 
 .btn-dsp-block {
-  display: block ;
+  display: block;
 }
-
 
 .btn-table-end:hover {
-  cursor: pointer ;
+  cursor: pointer;
 }
 
-.btn-form-submit{
-  background-color:  #5C6BC0 ;
-  color: #ffffff ;
-  border-radius: 5px ;
-  height: 2rem ;
+.btn-form-submit {
+  background-color: #5c6bc0;
+  color: #ffffff;
+  border-radius: 5px;
+  height: 2rem;
   text-align: center;
   /* line-height: 2rem ; */
-  width:100%;
-  display:block;
+  width: 100%;
+  display: block;
 }
 
 /* custom navbar links  */
 
 .clicableA {
-  cursor: pointer ;
+  cursor: pointer;
 }
 
-.my-nav a:hover, a:active {
-  color: #ffff74 ;
+.my-nav a:hover,
+a:active {
+  color: #ffff74;
 }
-
-
 
 @keyframes App-logo-spin {
   from {
