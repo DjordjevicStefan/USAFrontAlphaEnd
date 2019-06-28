@@ -1,15 +1,38 @@
 import React, { Component } from "react";
 import WorkOrderJobs from "./workOrderJobs" ;
+import SearchBox from "../common/searchBox"
 
 export default class workOrderTable extends Component {
+
+  state = {
+    searchQuery : "" ,
+    searchOption : "name",
+    options : [ "name" , "room" ] 
+  }
+
+  handleSearch = (query) => {
+    this.setState({
+      searchQuery : query 
+    });
+  }
+
+  handleOptionsSearch = (e) => {
+    this.setState({
+      searchOption : e.target.value
+    })
+  }
+
+
   render() {
     const { workorder, jobs } = this.props.workorder;
     const { users, onDateChange, onVendorChange , calendarTest, vendors, handleId, returnVendorId, onOk } = this.props;
 
     let workorderUser = users.find(x => x._id === workorder.userId);
-    const userName =  (workorderUser) ?  workorderUser.firstName + "     " + workorderUser.lastName : "user deleted" ;
+    const userName =   workorderUser.name ;
 
-    // const userName = workorderUser.firstName + "     " + workorderUser.lastName;
+    
+
+    
 
     return (
       <div>
@@ -42,11 +65,21 @@ export default class workOrderTable extends Component {
             </div>
           </div>
           <div className="row">
-            <div className="col-sm text-center"> <pre className="lead font-weight-bold mt-2"> J O B S    L I S T</pre>  </div>
+            <div className="col-sm text-center"> <pre className="lead font-weight-bold mt-2"> J O B S    L I S T</pre> 
+            <SearchBox 
+            options ={this.state.options}
+            onOptionChange ={this.handleOptionsSearch}
+            value = {this.state.searchQuery}
+            onChange ={this.handleSearch}
+          />
+
+             </div>
           </div>
 
           <WorkOrderJobs 
              jobs={jobs}
+             searchOption ={this.state.searchOption}
+             searchQuery = {this.state.searchQuery}
              onVendorChange ={onVendorChange}
              onDateChange= {onDateChange}
              calendarTest ={calendarTest}

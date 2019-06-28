@@ -20,21 +20,27 @@ export default class WorkOrder extends Component {
     selectedId: "",
     load: false,
     jobIdFromDate: ""
+
   };
 
   async componentDidMount() {
     const { data: workorder } = await getWorkOrder(this.props.match.params.id);
     const { data: vendors } = await getAllVendors();
+     
+    const vendorsWithoutDisabled = vendors.filter(vendor => (
+      vendor.status === "active"
+    ));
+
     const { data: users } = await getAllUsers();
 
     // deleting the calendar prop for now
-    for (let i = 0; i < vendors.length; i++) {
-      delete vendors[i].calendar;
+    for (let i = 0; i < vendorsWithoutDisabled.length; i++) {
+      delete vendorsWithoutDisabled[i].calendar;
     }
 
     this.setState(() => ({
       workorder: workorder,
-      vendors: vendors,
+      vendors: vendorsWithoutDisabled,
       users: users,
       load: true
     }));
@@ -174,11 +180,7 @@ export default class WorkOrder extends Component {
    
   }
 
-  test = async () => {
-   const testtt = await  endJob("5d14e18e8bc89c5498bb3b8c") ;
-   console.log(testtt);
-   
-  }
+ 
 
   render() {
     const { load } = this.state;
@@ -197,7 +199,7 @@ export default class WorkOrder extends Component {
       <div>
         <AdminNavbar pageName="Work order" />
         <ToastContainer />
-        <button onClick={this.test}>Test</button>
+        
         <WorkOrderTable
           workorder={this.state.workorder}
           users={this.state.users}

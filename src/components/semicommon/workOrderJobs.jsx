@@ -1,12 +1,31 @@
 import React from "react";
 import DatePicker from "react-datepicker";
+import _ from "lodash" ;
 
 export default function WorkOrderJobs(props) {
-  const { jobs, onDateChange, onVendorChange , vendors, handleId, onOk } = props;
+  const { jobs, onDateChange, onVendorChange , vendors, handleId, onOk, searchOption, searchQuery } = props;
+   
+  let sortJobs = _.orderBy(jobs, ['name'],['asc']) ;
+
+  //// search jobs arrey 
+  let searchedArrey = null ; 
+  if (searchQuery !== "") {
+    searchedArrey = sortJobs.filter(job => job[searchOption].toLowerCase().startsWith(searchQuery.toLowerCase())) ;
+    sortJobs = searchedArrey
+  } else {
+    
+  }
+  
+  console.log();
+
+  const sortVendors = _.orderBy(vendors, ['profession'],['asc']) ;
+  
+  console.log(sortJobs);
+  
 
   return (
     <>
-      {jobs.map(job => (
+      {sortJobs.map(job => (
         <table key={job._id} className="table table-bordered table-border-bottom">
           <thead>
             <tr>
@@ -39,13 +58,13 @@ export default function WorkOrderJobs(props) {
                 Select vendor:
                 <select  onChange={onVendorChange} className="form-control form-control-sm">
                   <option value="">Select vendor</option>
-                  {vendors.map(vendor=> (
-                    <option value={vendor._id} key={vendor._id}> {`${vendor.firstName + " " + vendor.lastName}`} { `Profession: ${vendor.profession}`   } </option>
+                  {sortVendors.map(vendor=> (
+                    <option value={vendor._id} key={vendor._id}> {`Name: ${vendor.name} | ` } { `Profession: ${vendor.profession}`   } </option>
                   ))}
                 </select>
               </th>
               <th>
-                Pick end date:
+                Pick start date:
                 <div onClick={() => handleId(job._id)} className="btn-dsp-block">
                   
                   <DatePicker
