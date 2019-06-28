@@ -24,6 +24,9 @@ export function deleteItem(itemId){
 }
 
 export function editItem(item) {
+  console.log("item link" , item.link );
+  
+
   return http.post(`http://localhost:3500/admin/editItem/${item._id}` , qs.stringify({
       name : item.name ,
       subCategory : item.subCategory,

@@ -23,7 +23,8 @@ export default class Items extends Component {
     newItem: {
       name: "",
       subCategory: "",
-      price: ""
+      price: "",
+      link : ""
     }
   };
 
@@ -63,7 +64,7 @@ export default class Items extends Component {
     if (data.error) {
       toast.error("Item add error, please fill all fields and try again");
     } else {
-      toast.success("Item successfully added", { autoClose: 2300 });
+      toast.success("Item successfully added", { autoClose: 2700 });
     }
 
     const { data: selectedRoom } = await getItemsFromRoom(name);
@@ -77,7 +78,8 @@ export default class Items extends Component {
       newItem: {
         name: "",
         subCategory: "",
-        price: ""
+        price: "",
+        link : ""
       }
     }));
   };
@@ -104,11 +106,11 @@ export default class Items extends Component {
     });
   };
 
-  //// submiting edited item to database
+  //// submiting edited item to database 
   handleEdit = async item => {
     const { data } = await editItem(item);
     if (data.success) {
-      toast.success("Item successfully edited", { autoClose: 2300 });
+      toast.success("Item successfully edited", { autoClose: 2700 });
     } else {
       toast.error("Database error");
     }

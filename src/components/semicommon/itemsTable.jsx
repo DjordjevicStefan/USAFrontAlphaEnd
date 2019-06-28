@@ -31,9 +31,9 @@ class ItemsTable extends Component {
           <tbody>
             <tr>
               <td className="padding-b">
-                <form>
+                <form >
                   <div className="form-group row">
-                    <label className="col-sm-2 col-form-label form-control-sm">
+                    <label className="col col-form-label form-control-sm">
                       Name:
                     </label>
                     <div className="col-sm-2">
@@ -45,7 +45,7 @@ class ItemsTable extends Component {
                         value={newItem.name}
                       />
                     </div>
-                    <label className="col-sm-2 col-form-label form-control-sm">
+                    <label className="col col-form-label form-control-sm">
                       Subcategory:
                     </label>
                     <div className="col-sm-2">
@@ -57,7 +57,7 @@ class ItemsTable extends Component {
                         value={newItem.subCategory}
                       />
                     </div>
-                    <label className="col-sm-2 col-form-label form-control-sm">
+                    <label className="col col-form-label form-control-sm">
                       Price:
                     </label>
                     <div className="col-sm-2">
@@ -70,6 +70,18 @@ class ItemsTable extends Component {
                         value={newItem.price}
                       />
                     </div>
+                    <label className="col col-form-label form-control-sm">
+                      Link:
+                    </label>
+                    <div className="col-sm-2">
+                      <input
+                        onChange={onChangeNew}
+                        name="link"
+                        type="text"
+                        className="form-control form-control-sm"
+                        value={newItem.link}
+                      />
+                    </div>
                   </div>
                 </form>
               </td>
@@ -78,11 +90,11 @@ class ItemsTable extends Component {
                   onClick={() => submitNew(room)}
                   className="btn-table-end btn-line-hight"
                 >
-                  Add new
+                  Add
                 </button>
               </td>
             </tr>
-            {selectedRoom.errorMsg ? (
+            {selectedRoom.items.length === 0 ? (
               <tr>
                 <td>There is no items in this room</td>
               </tr>
@@ -90,9 +102,9 @@ class ItemsTable extends Component {
               selectedRoom.items.map(item => (
                 <tr key={item._id}>
                   <td className="padding-b">
-                    <form>
+                    <form className="form-items">
                       <div className="form-group row">
-                        <label className="col-sm-2 col-form-label form-control-sm">
+                        <label className="col col-form-label form-control-sm">
                           Name:
                         </label>
                         <div className="col-sm-2">
@@ -105,7 +117,7 @@ class ItemsTable extends Component {
                             id={item._id}
                           />
                         </div>
-                        <label className="col-sm-2 col-form-label form-control-sm">
+                        <label className="col col-form-label form-control-sm">
                           Subcategory:
                         </label>
                         <div className="col-sm-2">
@@ -118,7 +130,7 @@ class ItemsTable extends Component {
                             id={item._id}
                           />
                         </div>
-                        <label className="col-sm-2 col-form-label form-control-sm">
+                        <label className="col col-form-label form-control-sm">
                           Price:
                         </label>
                         <div className="col-sm-2">
@@ -132,13 +144,26 @@ class ItemsTable extends Component {
                             className="form-control form-control-sm"
                           />
                         </div>
+                        <label className="col col-form-label form-control-sm">
+                      Link:
+                    </label>
+                    <div className="col-sm-2">
+                      <input
+                        onChange={onChange}
+                        name="link"
+                        type="text"
+                        className="form-control form-control-sm"
+                        value={item.link}
+                        id={item._id}
+                      />
+                    </div>
                       </div>
                     </form>
                   </td>
                   <td className="padding-b">
                     <button
                       onClick={() => editItem(item)}
-                      className="btn btn-sm mdc-button mr-1"
+                      className="btn btn-sm mdc-button mb-1"
                     >
                       Edit
                     </button>
