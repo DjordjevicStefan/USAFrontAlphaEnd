@@ -8,7 +8,7 @@ import {endJob} from "../services/workOrders" ;
 import AdminNavbar from "./common/adminNavbar";
 import TableName from "./common/tableName";
 import JobsTable from "./semicommon/jobsTable";
-import SearchBox from "./common/searchBox";
+import SearchBox from "./common/search";
 
 
 export default class Jobs extends Component {

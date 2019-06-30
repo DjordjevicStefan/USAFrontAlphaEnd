@@ -89,6 +89,7 @@ class ItemsTable extends Component {
                 <button
                   onClick={() => submitNew(room)}
                   className="btn-table-end btn-line-hight"
+
                 >
                   Add
                 </button>

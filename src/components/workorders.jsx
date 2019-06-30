@@ -9,7 +9,7 @@ import "../css/fullroom.css";
 import { getRooms } from "../services/fakeRoomService";
 import axios from "axios";
 import SearchBox from "./common/searchbox";
-class FullRoom extends Form {
+class Workorders extends Form {
   state = {
     data: {},
     errors: {},
@@ -146,7 +146,7 @@ class FullRoom extends Form {
     }
     this.setState({ checked });
   };
-  handleAptNum = e => {};
+
   // handleChange1(e) {
   //   const building1 = e.target.value;
   //   const build = building1.split(":");
@@ -190,36 +190,35 @@ class FullRoom extends Form {
 
   constructor(props) {
     super(props);
-    const data = {};
-    const errors = {};
-    const value = {};
-    const checked = {};
-    const rooms = getRooms();
+    // const data = {};
+    // const errors = {};
+    // const value = {};
+    // const checked = {};
+    // const rooms = getRooms();
 
-    const allItems = JSON.parse(localStorage.getItem("allItems"));
+    const allItems = JSON.parse(localStorage.getItem("workorders"));
     // const room = this.props.match.params.m;
 
-    const room0 = rooms.filter(m => m.id == this.props.match.params.id);
-    const renderedItems = allItems.filter(m => m.room === room0[0].name);
-    {
-      renderedItems.map(item => (checked[item.name] = false));
-    }
+    // const renderedItems = allItems;
+    // {
+    //   renderedItems.map(item => (checked[item.name] = false));
+    // }
 
-    let schema = this.state.schema;
+    // let schema = this.state.schema;
 
-    let items = renderedItems;
+    // let items = renderedItems;
 
-    {
-      items.map(item => (schema[item.name] = Joi.number().label("quantity")));
-    }
+    // {
+    //   items.map(item => (schema[item.name] = Joi.number().label("quantity")));
+    // }
 
-    const buildings = JSON.parse(localStorage.getItem("buildings")).filter(
-      m => m.region === this.props.match.params.m
-    );
+    // const buildings = JSON.parse(localStorage.getItem("buildings")).filter(
+    //   m => m.region === this.props.match.params.m
+    // );
 
-    const build = [...this.state.build];
+    // const build = [...this.state.build];
 
-    // const d = buildings.map(
+    // // const d = buildings.map(
     //   element =>
     //     (element.value =
     //       element.number +
@@ -234,182 +233,82 @@ class FullRoom extends Form {
     // build.push(d);
     // this.state = { data };
 
-    const workorder = JSON.parse(localStorage.getItem("workorder"));
-    const build1 = [];
-    build1.push(workorder.workorder.buildingNumber);
-    build.push(build1);
-    const adress = [];
-    const searchQuery = "";
+    // const workorder = JSON.parse(localStorage.getItem("workorder"));
+    // const build1 = [];
+    // build1.push(workorder.workorder.buildingNumber);
+    // build.push(build1);
+    // const adress = [];
+    // const searchQuery = "";
     // console.log(build);
     this.state = {
-      searchQuery,
-      adress,
-      build,
-      rooms,
-      schema,
-      allItems,
-      data,
-      errors,
-      value,
-      checked,
-      renderedItems
+      allItems
     };
   }
 
   render() {
-    console.log(this.state.searchQuery);
-    const searchQuery = this.state.searchQuery;
-    const showing = true;
-    // const adress = [];
-    if (
-      !JSON.parse(localStorage.getItem("workorder")).workorder.buildingNumber
-    ) {
-    }
-    const buildNumber = JSON.parse(localStorage.getItem("workorder")).workorder
-      .buildingNumber;
+    console.log(this.state.allItems);
+    const allItems = this.state.allItems;
+    // console.log(this.state.searchQuery);
+    // const searchQuery = this.state.searchQuery;
+    // const showing = true;
+    // // const adress = [];
+    // if (
+    //   !JSON.parse(localStorage.getItem("workorder")).workorder.buildingNumber
+    // ) {
+    // }
+    // const buildNumber = JSON.parse(localStorage.getItem("workorder")).workorder
+    //   .buildingNumber;
 
-    const building = JSON.parse(localStorage.getItem("buildings")).find(
-      m => m.number == buildNumber
-    );
+    // const building = JSON.parse(localStorage.getItem("buildings")).find(
+    //   m => m.number == buildNumber
+    // );
 
-    // element.value = element.number + " (" + element.zip + ")";
+    // // element.value = element.number + " (" + element.zip + ")";
 
-    // const { data, errors, checked, renderedItems } = this.state;
+    // // const { data, errors, checked, renderedItems } = this.state;
 
-    const adress = building.adress + " (" + building.zip + ")";
-    console.log(searchQuery);
+    // const adress = building.adress + " (" + building.zip + ")";
+    // console.log(searchQuery);
 
-    let datas = this.state.renderedItems;
-    if (searchQuery) {
-      datas = this.state.renderedItems.filter(m =>
-        m.name.toLowerCase().startsWith(searchQuery.toLowerCase())
-      );
-    }
-    let title = "";
-    if (datas[0] == undefined) {
-      title = "Not found";
-    } else {
-      title = datas[0].room;
-    }
-    console.log(datas);
-
-    const workorder = JSON.parse(localStorage.getItem("workorder"));
-    const value = workorder.workorder.apartmentNumber;
+    // if (searchQuery) {
+    //   datas = this.state.allItems.filter(m =>
+    //     m.name.toLowerCase().startsWith(searchQuery.toLowerCase())
+    //   );
+    // }
+    // let title = "";
+    // if (datas[0] == undefined) {
+    //   title = "Not found";
+    // } else {
+    //   title = datas[0].room;
+    // }
+    // console.log(datas);
+    let datas = this.state.allItems;
+    // const workorder = JSON.parse(localStorage.getItem("workorder"));
+    // const value = workorder.workorder.apartmentNumber;
     // const { adress } = this.state;
     // console.log(adress);
 
     return (
       <React.Fragment>
         <div className="container mainPage">
-          <NavBar
-            {...this.props}
-            value={value}
-            adress={adress}
-            showing={showing}
-            build={this.state.build}
-            // onHandleInput={this.handleInput}
-            // build={build}
-            onHandleChange={this.handleChange1}
-            // onChangeBuildings={() => this.handleChangeBuilding()}
-            onHandleAptNum={this.handleAptNum}
-            onBackButton={this.handleBackButton}
-            onFinishedButton={this.handleFinishedButton}
-          />
-          <div className="buttons">
-            <div className="col-6">
-              <button
-                onClick={() => this.handleBackButton()}
-                className="btn btn-warning m-3"
-              >
-                ⏎ Home
-              </button>
-
-              <button
-                onClick={() => this.handleWorkOrder()}
-                className="btn btn-success m-3"
-              >
-                Save
-              </button>
-              <button
-                onClick={() => this.handleFinishedButton()}
-                className="btn btn-primary m-3"
-              >
-                Complete All
-              </button>
-            </div>
-            <Link to={"/user/workorders"} className="btn btn-warning mt-3 mb-3">
-              My Workorders
-            </Link>
-            <button
-              onClick={() => this.handlelogOut()}
-              className="btn btn-danger m-3"
-            >
-              &#x2716; Logout
-            </button>
-          </div>
-          <SearchBox value={searchQuery} onChange={this.handleSearch} />
           <div className="rooms border text-center">
-            <h1 className="lead m-3">{title}</h1>
+            <h1 className="lead m-3">All workorders</h1>
             <table className="table">
               <thead>
                 <tr>
-                  <th>Item</th>
-                  <th>SubCategory</th>
+                  <th>Building Number</th>
+                  <th>Apartment Number</th>
 
-                  <th>Price</th>
-                  <th>Quantity</th>
-                  <th>Total Price</th>
-                  <th>Comment</th>
-
-                  <th>Link</th>
-                  <th>✔</th>
+                  <th>Status</th>
                 </tr>
               </thead>
+
               <tbody>
                 {datas.map(item => (
                   <tr key={item.name}>
-                    <td>{item.name}</td>
-                    <td>{item.subCategory}</td>
-                    <td>{item.price}</td>
-
-                    <td>
-                      <input
-                        min="1"
-                        disabled={item.checked}
-                        name={item.name}
-                        label="quantity"
-                        onChange={this.handleChange}
-                        value={  item.quantity || 1 }
-                        className="quantity"
-                        type="number"
-                        id={item._id}
-                      />{" "}
-                    </td>
-                    <td>{Math.ceil(item.quantity * item.price) || item.price }$</td>
-                    <td>
-                      <textarea
-                        cols="38"
-                        rows="2"
-                        disabled={item.checked}
-                        onChange={this.handleChangeArea}
-                        name={item.name}
-                        value={item.comment}
-                        id={item._id}
-                      />
-                    </td>
-                    <td>
-                      <Link to="#">Link</Link>
-                    </td>
-                    <td>
-                      <Checkbox
-                        type="checkbox"
-                        className="form-control"
-                        name={item.name}
-                        id={item._id}
-                        checked={item.checked}
-                        onChange={this.handleCheckboxChange}
-                      />
-                    </td>
+                    <td>{item.buildingNumber}</td>
+                    <td>{item.apartmentNumber}</td>
+                    <td>{item.status}</td>
                   </tr>
                 ))}
               </tbody>
@@ -421,4 +320,4 @@ class FullRoom extends Form {
   }
 }
 
-export default FullRoom;
+export default Workorders;

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import WorkOrderJobs from "./workOrderJobs" ;
-import SearchBox from "../common/searchBox"
+import SearchBox from "../common/search"
 
 export default class workOrderTable extends Component {
 

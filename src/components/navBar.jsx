@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 import "../css/navbar.css";
 
@@ -6,7 +7,8 @@ import logo from "../img/ben-leeds-logo.png";
 class NavBar extends Component {
   state = {
     data: [],
-    value: ""
+    value: "",
+    showing: true
   };
 
   handlelogOut() {
@@ -21,23 +23,16 @@ class NavBar extends Component {
     const buildings = JSON.parse(localStorage.getItem("buildings")).filter(
       m => m.region === this.props.match.params.id
     );
-
+    // console.log(buildings);
     const data = [...this.state.data];
 
     const d = buildings.map(
-      element =>
-        (element.value =
-          element.number +
-          ":" +
-          " " +
-          element.adress +
-          " (" +
-          element.zip +
-          ")")
+      element => (element.value = element.adress + " (" + element.zip + ")")
     );
 
+    const showing = false;
     data.push(d);
-    this.state = { data };
+    this.state = { data, showing };
   }
 
   handleChange(e) {
@@ -56,27 +51,53 @@ class NavBar extends Component {
     const workorder = JSON.parse(localStorage.getItem("workorder"));
 
     const dateNow = workorder.workorder.loginTime;
-
+    const { showing } = this.state;
+    const { adress } = this.state;
     // console.log(this.state.data);
+    // console.log(this.state.adress);
+    // console.log(this.props.adress);
     return (
-      <nav className=" navBox  text-center">
-        <div class="logo p-3">
+      <nav className="nav-box  text-center">
+        <div className="logo p-3">
           <img src={logo} alt="Ben Leeds Logo" />
         </div>
+
         <div className="container mainPage">
-          <div className="row">
-            <div className="col-sm-6">
+          <div className="row nav-box">
+            <div className="col-sm-4">
               <div className="input-group mb-3">
                 <div className="input-group-prepend">
-                  <div className="build input-group-text  text-white">Building:</div>
+                  <div
+                    // onChangeBuild={() => this.props.changeBuild(this.value)}
+                    className="build input-group-text  text-white"
+                  >
+                    Building Number:
+                  </div>
                 </div>
 
-                <select
+                <input
+                  type="number"
+                  min="1"
+                  
+                  className="build-input"
+                  onChange={this.props.onHandleInput}
+                  // adress={this.props.adress}
+                  // onChangeInput={this.handleInput}
+                />
+                <br />
+                {this.props.showing ? (
+                  <div className="build-div">{this.props.adress}</div>
+                ) : null}
+                {/* <select
                   name="country"
-                  onChange={this.handleChange}
-                  value={this.value}
-                >
-                  {this.state.data[0].map(e => {
+                  onChange={() => this.setState({ showing: !showing })}
+                  // onChange={this.props.onHandleChange}
+                  // currentBuild={() => this.props.currentBuild(this.state.build)}
+                  build={this.props.build}
+                  // value={this.props.build}
+                > */}
+                {/* <option value="">Select building</option>
+                  {this.props.build[0].map(e => {
                     console.log(e);
                     // console.log(e);
                     // console.log(this.state.data);
@@ -84,55 +105,38 @@ class NavBar extends Component {
                     // console.log(index);
 
                     return <option value={e}>{e}</option>;
-                  })}
-                </select>
+                  })} */}
+                {/* </select> */}
               </div>
             </div>
-            <div className="col-sm-3">
+            <div className="col-sm-4">
               <div className="input-group mb-3">
                 <div className="input-group-prepend">
                   <div className="build input-group-text  text-white">
-                    Apt. number:
+                    Apartment Number:
                   </div>
                 </div>
                 <input
                   value={this.props.value}
                   onChange={this.props.onHandleAptNum}
-                  className="form-control"
+                  className="build-input"
                 />
               </div>
             </div>
-            <div className="col-sm-3">
+            <div className="col-sm-4">
               <div className="input-group mb-3">
                 <div className="input-group-prepend">
                   <div className="build input-group-text text-white">Date:</div>
                 </div>
 
-                <input type="text" className="form-control" value={dateNow} />
+                <input
+                  type="text"
+                  className="form-control"
+                  defaultValue={dateNow}
+                />
               </div>
             </div>
           </div>
-        </div>
-        <div className="buttons">
-          <button
-            onClick={() => this.props.onBackButton()}
-            className="btn btn-warning m-3"
-          >
-            ⏎ Home
-          </button>
-          <button
-            onClick={() => this.handlelogOut()}
-            className="btn btn-danger m-3"
-          >
-            &#x2716; Logout
-          </button>
-
-          <button
-            onClick={() => this.props.onFinishedButton()}
-            className="btn btn-primary m-3"
-          >
-            Complete All
-          </button>
         </div>
       </nav>
     );

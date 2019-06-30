@@ -14,10 +14,8 @@ export function getWorkOrder(workOrderId){
 export function endJob(jobId){
   let d = new Date();
   let endDate = d.toLocaleString();
-  console.log(endDate);
   
-
-   return http.post(`http://localhost:3500/admin/finishJob/${jobId}`, 
+  return http.post(`http://localhost:3500/admin/finishJob/${jobId}`, 
    qs.stringify({
      status : "finished" ,
      endDate : endDate

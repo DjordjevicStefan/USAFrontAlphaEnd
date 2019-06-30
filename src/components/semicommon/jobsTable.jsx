@@ -1,4 +1,5 @@
 import React from "react";
+import { log } from "util";
 
 export default function JobsTable(props) {
   const { jobs , jobStateSelect , searchQuery , searchOption , onFinish } = props ;
@@ -30,6 +31,21 @@ export default function JobsTable(props) {
     
   }
 
+
+  
+
+  const formatDate = (assignmentDate) => {
+    
+    // const year = assignmentDate.substring(0,4) ;
+    // const month = assignmentDate.substring(5,7);
+    // const day = assignmentDate.substring(8,10);
+  
+    // const formatedSelDate = month + "/" + day +"/" + year ;
+    const  formatedSelDate = assignmentDate.substring(0,16);
+    return formatedSelDate ;
+      
+  }
+
   return (
     <>
       
@@ -50,12 +66,12 @@ export default function JobsTable(props) {
              <td>{job.workorder.buildingNumber}</td>
              <td>{job.workorder.apartmentNumber}</td>
              <td>{(job.vendor) ?  job.vendor.name  : "not selected or deleted"}</td>
-             <td>{(job.assignmentDate === null || job.assignmentDate === "" ) ?  "not assigned" : job.assignmentDate.substring(0, 19)} </td>
+             <td>{(job.assignmentDate === null || job.assignmentDate === "" ) ?  "not assigned" : formatDate(job.assignmentDate)} </td>
            </tr>
            <tr className={ (job.vendor) ? "" : "table-border-bottom"}>
              <th colSpan="4">Room: <span className="font-weight-normal mr-5"> {job.room} </span>
              Name: <span className="font-weight-normal mr-5"> {job.name} </span>
-             Price: <span className="font-weight-normal mr-5"> {job.price} </span>
+             Price: <span className="font-weight-normal">&#36;</span> <span className="font-weight-normal mr-5"> {job.price} </span>
              Quantity: <span className="font-weight-normal mr-5"> {job.quantity} </span>
              {(job.endDate !== "") ?  <span className="font-weight-normal"> <span className="font-weight-bold">End date:</span>  <span className="endDate">{job.endDate}</span></span> : null }</th>
            </tr>

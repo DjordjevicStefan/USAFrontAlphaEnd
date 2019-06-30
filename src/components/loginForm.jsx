@@ -36,7 +36,12 @@ class LoginForm extends Form {
       qs.stringify(params)
     );
 
-    console.log(response);
+    console.log("moj log",response);
+    
+
+    localStorage.setItem("workorders", JSON.stringify(response.workorders));
+    console.log(response.workorders);
+
     if (response === "no email" || response === "bad password") {
       const errors = { ...this.state.errors };
       if (response === "no email") {
@@ -51,7 +56,7 @@ class LoginForm extends Form {
         localStorage.setItem("admin", JSON.stringify(data));
         this.props.history.push(`./admin`);
       } else {
-        const user = response._id;
+        const user = response.user._id;
         const workorder = {
           workorder: {
             loginTime: Date(Date.now()),
@@ -62,11 +67,11 @@ class LoginForm extends Form {
             buildingNumber: ""
           },
           jobs: {},
-          user: response
+          user: response.user
         };
         localStorage.setItem("workorder", JSON.stringify(workorder));
         const { state } = this.props.location;
-        this.props.history.push(`./rooms/${response.region}`);
+        this.props.history.push(`./rooms/${response.user.region}`);
 
         // window.location = state
         //   ? state.from.pathname

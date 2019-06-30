@@ -1,5 +1,5 @@
 import React from "react";
 
-const Checkbox = props => <input type="checkbox" {...props} />;
+const Checkbox = props => <input {...props} />;
 
 export default Checkbox;

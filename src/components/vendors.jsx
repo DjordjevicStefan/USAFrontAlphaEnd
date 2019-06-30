@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import AdminNavbar from "./common/adminNavbar";
 import Pagination from "./common/pagination" ;
-import SearchBox from "./common/searchBox";
+import SearchBox from "./common/search";
 import { getAllVendors, deleteVendor } from "../services/vendor";
 import { toast, ToastContainer } from "react-toastify";
 import TableName from "./common/tableName";

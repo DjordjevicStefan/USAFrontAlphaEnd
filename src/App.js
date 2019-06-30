@@ -4,6 +4,7 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import LoginForm from "./components/loginForm";
 import axios from "axios";
 import Rooms from "./components/rooms";
+import Workorders from "./components/workorders";
 
 import FullRoom from "./components/fullRoom";
 import Wo from "./components/workorder1";
@@ -50,6 +51,10 @@ class App extends Component {
           <ProtectedRoute path="/admin/jobs" component={Jobs} />
           <ProtectedRoute path="/admin" component={AdminPanel} />
 
+          <Route
+            path="/user/workorders"
+            render={props => <Workorders props={this.state.rooms} {...props} />}
+          />
           <Route
             path="/:id/:m/work-order"
             render={props => <Wo props={this.state.rooms} {...props} />}

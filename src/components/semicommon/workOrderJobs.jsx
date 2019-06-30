@@ -36,7 +36,7 @@ export default function WorkOrderJobs(props) {
                 Room:  <span className="font-weight-normal">{job.room}</span>{" "}
               </th>
               <th>
-                Price:  <span className="font-weight-normal">{job.price} &#36; </span>{" "}
+                Price:  <span className="font-weight-normal"> &#36; {job.price}  </span>{" "}
               </th>
               <th>
                 quantity:  <span className="font-weight-normal">{job.quantity}</span>{" "}

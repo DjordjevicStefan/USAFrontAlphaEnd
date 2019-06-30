@@ -5,7 +5,7 @@ import _ from "lodash";
 
 const AdminTable = ({ allOrders, status, onChange, onSort, sortColumn, checkEmpty, findUser }) => {
   //// filter orders by state prop
-  if (allOrders.error) {
+  if (allOrders.error || allOrders.length === 0 ) {
     return (
       <div className="container">
         <TableName tablename="No work orders in database" />
@@ -28,8 +28,16 @@ const AdminTable = ({ allOrders, status, onChange, onSort, sortColumn, checkEmpt
     
   };
 
-  ///// fa fa-sort-asc mr-2
-  ///// fa fa-sort-desc mr-2
+  const btnStatusText = (status) => {
+   if (status === "pending")
+      return "sent" ;
+    if (status === "sent")
+      return "saved" ;
+   if (status === "saved")
+      return "pending" ;
+  }
+
+  
 
   return (
     <div className="container">
@@ -38,7 +46,7 @@ const AdminTable = ({ allOrders, status, onChange, onSort, sortColumn, checkEmpt
       <table className="table">
         <thead>
           <tr>
-            <th scope="col">Select</th>
+            {(status === "saved") ? <th></th> : <th scope="col">Select</th>}
             <th
               className="click-th"
               onClick={() => onSort("buildingNumber")}
@@ -62,9 +70,18 @@ const AdminTable = ({ allOrders, status, onChange, onSort, sortColumn, checkEmpt
               {arrowIcon("firstName")} 
               User
             </th>
+            <th
+              className="click-th"
+              onClick={() => onSort("sendTime")}
+              scope="col"
+            >
+              {arrowIcon("sendTime")}
+              {(status==="saved") ? "Save time" : "Send time" }
+              
+            </th>
             <th scope="col">
               <button onClick={onChange} className="btn btn-primary">
-                show {status === "pending" ? "sent" : "pending "}
+                show {btnStatusText(status)}
               </button>
             </th>
           </tr>
@@ -77,13 +94,16 @@ const AdminTable = ({ allOrders, status, onChange, onSort, sortColumn, checkEmpt
               </td>
             </tr>
           ) : null}
+          {console.log(sorted) }
           {sorted.map(order => (
             
             <tr key={order._id}>
-              <td> <Link to={`/admin/workorder/${order._id}`} className="mdc-button btn-sm btn">Select</Link> </td>
+              {(status === "saved") ? <td></td> : <td> <Link to={`/admin/workorder/${order._id}`} className="mdc-button btn-sm btn">Select</Link> </td> }
+              
               <td>{order.buildingNumber}</td>
               <td>{order.apartmentNumber}</td>
               <td> {findUser(order.user._id)}</td> 
+              <td>{order.sendTime}</td>
               <td>{order.status}</td>
             </tr>
             

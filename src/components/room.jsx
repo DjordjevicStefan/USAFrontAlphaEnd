@@ -4,11 +4,12 @@ import { Link } from "react-router-dom";
 
 import _ from "lodash";
 import "../css/room.css";
+import "../css/links.css";
 
 const room = props => (
-  <div className="col-4">
+  <div className="col-4 p-3">
     <div className="card mb-3 text-center">
-      <Link to={"/rooms/" + props.id + "/" + props.region}>
+      <Link className="links" to={"/rooms/" + props.id + "/" + props.region}>
         <img
           className="card-img-top img-fluid"
           src={props.image}

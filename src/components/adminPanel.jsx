@@ -44,6 +44,8 @@ class AdminPanel extends Component {
     if (this.state.btnStatus === "pending")
       return this.setState({ btnStatus: "sent" });
     if (this.state.btnStatus === "sent")
+      return this.setState({ btnStatus: "saved" });
+      if (this.state.btnStatus === "saved")
       return this.setState({ btnStatus: "pending" });
   };
 

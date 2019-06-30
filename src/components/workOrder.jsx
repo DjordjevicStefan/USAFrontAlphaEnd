@@ -5,7 +5,7 @@ import TableName from "./common/tableName";
 import WorkOrderTable from "../components/semicommon/workOrderTable";
 
 import { getAllVendors } from "../services/vendor";
-import { getWorkOrder, assignJob , endJob } from "../services/workOrders";
+import { getWorkOrder, assignJob, endJob } from "../services/workOrders";
 import getAllUsers from "../services/users";
 
 import { toast, ToastContainer } from "react-toastify";
@@ -20,16 +20,15 @@ export default class WorkOrder extends Component {
     selectedId: "",
     load: false,
     jobIdFromDate: ""
-
   };
 
   async componentDidMount() {
     const { data: workorder } = await getWorkOrder(this.props.match.params.id);
     const { data: vendors } = await getAllVendors();
-     
-    const vendorsWithoutDisabled = vendors.filter(vendor => (
-      vendor.status === "active"
-    ));
+
+    const vendorsWithoutDisabled = vendors.filter(
+      vendor => vendor.status === "active"
+    );
 
     const { data: users } = await getAllUsers();
 
@@ -42,21 +41,16 @@ export default class WorkOrder extends Component {
       workorder: workorder,
       vendors: vendorsWithoutDisabled,
       users: users,
-      okTriger : false ,
+      okTriger: false,
       load: true
     }));
   }
 
   //// prvi puca uvek
-  handleDateChange = (e) => {
-    const selDate = e.target.value ;
-
+  handleDateChange = e => {
+    const selDate = e.target.value;
     
-    // console.log(typeof selDate);
-    // console.log("obican string",selDate.toString());
-    // console.log("to iso string",selDate.toLocaleDateString());
     
-    // console.log(Date(date));
     
 
     const jobId = this.state.jobIdFromDate;
@@ -67,7 +61,7 @@ export default class WorkOrder extends Component {
     // console.log("filterovan arrey" , editDate);
 
     editDate[0].assignmentDate = selDate;
-    console.log("dodat datum" , editDate[0]);
+    console.log("dodat datum", editDate[0]);
 
     const workorderCopy = { ...this.state.workorder };
     workorderCopy.jobs = jobsArrey;
@@ -116,19 +110,18 @@ export default class WorkOrder extends Component {
   };
 
   handleOkButton = async (e, id) => {
+    let yesNo = window.confirm(
+      `Are you sure you assigned the correct date and vendor for this job?`
+    );
 
-    let yesNo = window.confirm(`Are you sure you assigned the correct date and vendor for this job?`)
-     
     if (yesNo === false) {
-      return ;
+      return;
     } else {
-        
     }
-    
-    this.setState({
-      okTriger : true
-    })
 
+    this.setState({
+      okTriger: true
+    });
 
     const clickBtnId = id;
 
@@ -142,11 +135,26 @@ export default class WorkOrder extends Component {
     const firstCheck = index;
     const secondCheck = index2;
 
-    //// data i need to populate assign function
-    const workorder = this.state.workorder.workorder;
-    const job = jobsArrey.find(job => job._id === clickBtnId);
+    ////data i need to populate assign function
 
+    const workorder = this.state.workorder.workorder;
+    console.log("pre funkcje wo" , workorder );
+    //// check to see if all jobs wrom this wo are sent ,checking for wo change status
+    const woStatusCheck = (workorder) => {
+     let check = jobsArrey.filter(job => (
+          job.status === "pending" 
+      )) ;
     
+      if (check.length === 0) {
+        workorder.status = "sent"  ;
+      } else {
+    }
+    } ;
+    woStatusCheck(workorder);
+    console.log("oosle funckije wo" , workorder );
+    
+    //// curent job to submit on button click
+    const job = jobsArrey.find(job => job._id === clickBtnId);
 
     let selVendorId = null;
     const vendorObj = checkArrey.find(job => job.jobId === clickBtnId);
@@ -161,41 +169,34 @@ export default class WorkOrder extends Component {
     const vendor = vendorArrey.find(vendor => vendor._id === selVendorId);
 
     if (firstCheck !== -1 && secondCheck !== -1) {
-     
-       this.submitDateAndVendor(clickBtnId, job, vendor, workorder) ;
-      
+      this.submitDateAndVendor(clickBtnId, job, vendor, workorder);
     } else {
       toast.error("please fill out all fields and date");
     }
   };
 
   submitDateAndVendor = async (clickBtnId, job, vendor, workorder) => {
+
     
-      console.log("jobid", clickBtnId);
-      console.log("wo", workorder);
-      console.log("job", job);
-      console.log("jvendor", vendor);
+    console.log("jobid", clickBtnId);
+    console.log("wo", workorder);
+    console.log("job", job);
+    console.log("jvendor", vendor);
 
-      const { data } = await assignJob(clickBtnId, job, vendor, workorder);
-      if (data.success) {
-        
-        
-        const woAndJobs = this.state.workorder;
-        const statusToEdit = woAndJobs.jobs.filter(
-          job => job._id === clickBtnId
-        );
-        statusToEdit[0].status = "sent";
-        this.setState({
-          workorder: woAndJobs
-        });
-        
-     } else {
-        toast.error("database error!");
-      }
-   
-  }
+  
 
- 
+    const { data } = await assignJob(clickBtnId, job, vendor, workorder);
+    if (data.success) {
+      const woAndJobs = this.state.workorder;
+      const statusToEdit = woAndJobs.jobs.filter(job => job._id === clickBtnId);
+      statusToEdit[0].status = "sent";
+      this.setState({
+        workorder: woAndJobs
+      });
+    } else {
+      toast.error("database error!");
+    }
+  };
 
   render() {
     const { load } = this.state;
@@ -214,7 +215,7 @@ export default class WorkOrder extends Component {
       <div>
         <AdminNavbar pageName="Work order" />
         <ToastContainer />
-        
+
         <WorkOrderTable
           workorder={this.state.workorder}
           users={this.state.users}
