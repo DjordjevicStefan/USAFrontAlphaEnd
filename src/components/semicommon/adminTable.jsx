@@ -1,43 +1,50 @@
 import React, { Component } from "react";
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom";
 import TableName from "../common/tableName";
+import Pagination from "../common/pagination";
 import _ from "lodash";
 
-const AdminTable = ({ allOrders, status, onChange, onSort, sortColumn, checkEmpty, findUser }) => {
+const AdminTable = ({
+  allOrders,
+  status,
+  onChange,
+  onSort,
+  sortColumn,
+  checkEmpty,
+  findUser,
+  paginate,
+  woPerPage
+}) => {
   //// filter orders by state prop
-  if (allOrders.error || allOrders.length === 0 ) {
+  if (allOrders.error || allOrders.length === 0) {
     return (
       <div className="container">
         <TableName tablename="No work orders in database" />
       </div>
     );
   }
-  
+
   let filteredOrders = allOrders.filter(order => order.status === status);
 
   //// sorting work oreders /// returns a arrey
   let sorted = _.orderBy(filteredOrders, [sortColumn.path], [sortColumn.order]);
 
-  
-   //// changing asc/desc arrow depending on the user interaction
+  //// changing asc/desc arrow depending on the user interaction
   let arrowIcon = path => {
     if (sortColumn.path === path) {
-     return (sortColumn.order === "asc") ? <i className="fa fa-sort-desc mr-2" /> : <i className="fa fa-sort-asc mr-2" /> ;
+      return sortColumn.order === "asc" ? (
+        <i className="fa fa-sort-desc mr-2" />
+      ) : (
+        <i className="fa fa-sort-asc mr-2" />
+      );
     }
- 
-    
   };
 
-  const btnStatusText = (status) => {
-   if (status === "pending")
-      return "sent" ;
-    if (status === "sent")
-      return "saved" ;
-   if (status === "saved")
-      return "pending" ;
-  }
-
-  
+  const btnStatusText = status => {
+    if (status === "pending") return "sent";
+    if (status === "sent") return "saved";
+    if (status === "saved") return "pending";
+  };
 
   return (
     <div className="container">
@@ -46,7 +53,7 @@ const AdminTable = ({ allOrders, status, onChange, onSort, sortColumn, checkEmpt
       <table className="table">
         <thead>
           <tr>
-            {(status === "saved") ? <th></th> : <th scope="col">Select</th>}
+            {status === "saved" ? <th /> : <th scope="col">Select</th>}
             <th
               className="click-th"
               onClick={() => onSort("buildingNumber")}
@@ -63,11 +70,12 @@ const AdminTable = ({ allOrders, status, onChange, onSort, sortColumn, checkEmpt
               {arrowIcon("apartmentNumber")}
               Apartment number
             </th>
-            <th className="click-th" 
-            onClick={() => onSort("firstName")} 
-            scope="col"
+            <th
+              className="click-th"
+              onClick={() => onSort("firstName")}
+              scope="col"
             >
-              {arrowIcon("firstName")} 
+              {arrowIcon("firstName")}
               User
             </th>
             <th
@@ -76,8 +84,7 @@ const AdminTable = ({ allOrders, status, onChange, onSort, sortColumn, checkEmpt
               scope="col"
             >
               {arrowIcon("sendTime")}
-              {(status==="saved") ? "Save time" : "Send time" }
-              
+              {status === "saved" ? "Save time" : "Send time"}
             </th>
             <th scope="col">
               <button onClick={onChange} className="btn btn-primary">
@@ -94,20 +101,40 @@ const AdminTable = ({ allOrders, status, onChange, onSort, sortColumn, checkEmpt
               </td>
             </tr>
           ) : null}
-          {console.log(sorted) }
+
           {sorted.map(order => (
-            
             <tr key={order._id}>
-              {(status === "saved") ? <td></td> : <td> <Link to={`/admin/workorder/${order._id}`} className="mdc-button btn-sm btn">Select</Link> </td> }
-              
+              {status === "saved" ? (
+                <td />
+              ) : (
+                <td>
+                  
+                  <Link
+                    to={`/admin/workorder/${order._id}`}
+                    className="mdc-button btn-sm btn"
+                  >
+                    Select
+                  </Link>
+                </td>
+              )}
+
               <td>{order.buildingNumber}</td>
               <td>{order.apartmentNumber}</td>
-              <td> {findUser(order.user._id)}</td> 
+              <td> {findUser(order.user._id)}</td>
               <td>{order.sendTime}</td>
               <td>{order.status}</td>
             </tr>
-            
           ))}
+
+          <tr>
+            <td colSpan="6">
+              <Pagination
+                total={sorted.length}
+                somethingPerPage={woPerPage}
+                paginate={paginate}
+              />
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -115,5 +142,3 @@ const AdminTable = ({ allOrders, status, onChange, onSort, sortColumn, checkEmpt
 };
 
 export default AdminTable;
-
-

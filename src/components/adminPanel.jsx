@@ -4,6 +4,7 @@ import AdminNavbar from "./common/adminNavbar";
 import getAllWorkorders from "../services/workOrders";
 import getAllUsers from "../services/users";
 
+
 import AdminTable from "./semicommon/adminTable";
 import { toast, ToastContainer } from "react-toastify";
 
@@ -15,6 +16,8 @@ class AdminPanel extends Component {
   state = {
     orders: null,
     users: null,
+    currentPage : 1 ,
+    woPerPage : 8, 
     btnStatus: "pending",
     sortColumn: { path: "buildingNumber", order: "asc" }
   };
@@ -58,6 +61,13 @@ class AdminPanel extends Component {
       this.setState({ sortColumn: { path: path, order: "asc" } });
     }
   };
+  
+  //// paginate f
+  handlePaginate = (number) => {
+    this.setState({
+      currentPage : number 
+    })
+  }
 
   //////// finding user by workorder
   findUserByWo = (workorderId) => {
@@ -97,7 +107,7 @@ class AdminPanel extends Component {
     }
 
     return (
-      // <BrowserRouter>
+      
       <div>
         <ToastContainer />
         <AdminNavbar pageName="Admin panel"/>
@@ -114,9 +124,12 @@ class AdminPanel extends Component {
           status={this.state.btnStatus}
           allOrders={this.state.orders}
           findUser = {this.findUserByWo}
+          paginate ={this.handlePaginate}
+          woPerPage ={this.state.woPerPage}
         />
+        
       </div>
-      // /* </BrowserRouter> */
+      
     );
   }
 }
