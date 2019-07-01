@@ -9,7 +9,7 @@ import AdminTable from "./semicommon/adminTable";
 import { toast, ToastContainer } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
-import TableName from "./common/tableName";
+import TableName from "../components/common/tableName" ;
 
 
 class AdminPanel extends Component {
@@ -19,7 +19,8 @@ class AdminPanel extends Component {
     currentPage : 1 ,
     woPerPage : 8, 
     btnStatus: "pending",
-    sortColumn: { path: "buildingNumber", order: "asc" }
+    sortColumn: { path: "buildingNumber", order: "asc" }, 
+    timeZone : Intl.DateTimeFormat().resolvedOptions().timeZone 
   };
 
   //// http request from the mongo database
@@ -93,6 +94,8 @@ class AdminPanel extends Component {
     }
   };
 
+  
+
   render() {
     if (this.state.orders === null) {
       return (
@@ -111,7 +114,7 @@ class AdminPanel extends Component {
       <div>
         <ToastContainer />
         <AdminNavbar pageName="Admin panel"/>
-         
+        <TableName tablename="Work orders" timeZone={this.state.timeZone} />
          {/* <Switch>
         <Route path="/users" exact component={Users} />
         </Switch> */}
@@ -126,6 +129,7 @@ class AdminPanel extends Component {
           findUser = {this.findUserByWo}
           paginate ={this.handlePaginate}
           woPerPage ={this.state.woPerPage}
+          currentPage ={this.state.currentPage}
         />
         
       </div>

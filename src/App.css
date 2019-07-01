@@ -25,8 +25,16 @@
 
 /* custom bootstrap colors and mine custom bootstrpa css  */
 
+.p-display-inline {
+  display: inline ;
+}
+
 .reset-right-padding {
   padding-right: 0 !important ;
+}
+
+.reset-bottom-margin {
+  margin-bottom: 0 !important ;
 }
 
 .pagination-custom {

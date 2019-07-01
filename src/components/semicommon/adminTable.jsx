@@ -13,7 +13,8 @@ const AdminTable = ({
   checkEmpty,
   findUser,
   paginate,
-  woPerPage
+  woPerPage,
+  currentPage
 }) => {
   //// filter orders by state prop
   if (allOrders.error || allOrders.length === 0) {
@@ -24,10 +25,18 @@ const AdminTable = ({
     );
   }
 
+  
+    
+
   let filteredOrders = allOrders.filter(order => order.status === status);
 
   //// sorting work oreders /// returns a arrey
   let sorted = _.orderBy(filteredOrders, [sortColumn.path], [sortColumn.order]);
+
+  //// pagination to show correct number of items/wo in table
+  const indexOfLast = currentPage * woPerPage ;
+  const indexOfFirst = indexOfLast - woPerPage ;
+  let woPaginated = sorted.slice(indexOfFirst, indexOfLast)
 
   //// changing asc/desc arrow depending on the user interaction
   let arrowIcon = path => {
@@ -46,9 +55,11 @@ const AdminTable = ({
     if (status === "saved") return "pending";
   };
 
+  
+
   return (
     <div className="container">
-      <TableName tablename="Work orders" />
+      
       {checkEmpty()}
       <table className="table">
         <thead>
@@ -102,7 +113,7 @@ const AdminTable = ({
             </tr>
           ) : null}
 
-          {sorted.map(order => (
+          {woPaginated.map(order => (
             <tr key={order._id}>
               {status === "saved" ? (
                 <td />
@@ -117,11 +128,11 @@ const AdminTable = ({
                   </Link>
                 </td>
               )}
-
+               
               <td>{order.buildingNumber}</td>
               <td>{order.apartmentNumber}</td>
               <td> {findUser(order.user._id)}</td>
-              <td>{order.sendTime}</td>
+              <td>{new Date(order.sendTime).toLocaleString()}</td>
               <td>{order.status}</td>
             </tr>
           ))}
