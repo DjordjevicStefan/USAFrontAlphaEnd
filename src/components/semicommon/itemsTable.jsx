@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import Pagination from "../common/pagination" ;
+import _ from "lodash" ;
 
 class ItemsTable extends Component {
 
@@ -11,9 +13,20 @@ class ItemsTable extends Component {
       onChange,
       editItem,
       deleteItem,
-      newItem
+      newItem,
+      paginate,
+      somethingPerPage,
+      currentPage
     } = this.props;
     const room = selectedRoom.room.name;
+
+    // console.log("room test",selectedRoom.items);
+    let sorted = _.orderBy(selectedRoom.items, [item => item.name.toLowerCase()],['asc']) ;
+    // console.log("sorted",sorted);
+
+    const indexOfLast = currentPage * somethingPerPage ;
+    const indexOfFirst = indexOfLast - somethingPerPage ;
+    let itemsPaginated = sorted.slice(indexOfFirst, indexOfLast)
 
     return (
       <>
@@ -95,12 +108,12 @@ class ItemsTable extends Component {
                 </button>
               </td>
             </tr>
-            {selectedRoom.items.length === 0 ? (
+            {itemsPaginated.length === 0 ? (
               <tr>
                 <td>There is no items in this room</td>
               </tr>
             ) : (
-              selectedRoom.items.map(item => (
+              itemsPaginated.map(item => (
                 <tr key={item._id}>
                   <td className="padding-b">
                     <form className="form-items">
@@ -180,6 +193,15 @@ class ItemsTable extends Component {
             )}
           </tbody>
         </table>
+        <div className="row">
+          <div className="col float-right">
+          <Pagination 
+              total={selectedRoom.items.length} 
+              somethingPerPage={somethingPerPage}
+              paginate ={paginate}
+           /> 
+          </div>
+        </div>
       </>
     );
   }

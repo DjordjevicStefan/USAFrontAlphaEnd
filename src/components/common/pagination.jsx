@@ -8,9 +8,9 @@ export default function Pagination({ somethingPerPage, total , paginate }) {
     
   }
   
-  console.log(total);
-  console.log(pageNumber);
-  console.log(somethingPerPage);
+  // console.log(total);
+  // console.log(pageNumber);
+  // console.log(somethingPerPage);
   
   return (
     

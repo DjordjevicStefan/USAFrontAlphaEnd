@@ -11,7 +11,7 @@ const TableName = (props) => {
         <p className={ (tz) ? "p-display-inline float-left reset-bottom-margin" : null}>{props.tablename}</p>
         { (tz) ? <div className="float-right">
         <span> 
-         <Clock format="dddd Do, MMMM , HH:mm:ss" ticking={true} interval={1000} timezone={tz}/>
+         <Clock format="dddd Do, MMMM, HH:mm:ss" ticking={true} interval={1000} timezone={tz}/>
         </span>
       </div> : null}
       </div>

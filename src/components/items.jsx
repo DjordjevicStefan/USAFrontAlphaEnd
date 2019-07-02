@@ -20,6 +20,8 @@ export default class Items extends Component {
     load: false,
     selectedRoom: { items: [], room: "" },
     itemsTableShow: false,
+    currentPage : 1,
+    itemsPerPage : 8, 
     newItem: {
       name: "",
       subCategory: "",
@@ -142,6 +144,13 @@ export default class Items extends Component {
       this.setState({ selectedRoom: selectedRoomCopy });
     }
   };
+  
+  //// paginate
+  handlePaginate = (number) => {
+    this.setState({
+      currentPage : number 
+    })
+  }
 
   render() {
     if (this.state.load === false) {
@@ -161,7 +170,7 @@ export default class Items extends Component {
         <ToastContainer />
         <AdminNavbar pageName="Master List By Rooms" />
         <TableName tablename="Add,edit and delete items from rooms" />
-        <div className="form-container">
+        <div className="form-container padding-bottom-1rem">
           <form>
             <div className="form-group row">
               <span className="col-sm-2 lead">Select room :</span>
@@ -188,6 +197,9 @@ export default class Items extends Component {
             editItem={this.handleEdit}
             renderNewItem={this.state.renderNewItem}
             newItem={this.state.newItem}
+            paginate ={this.handlePaginate}
+            somethingPerPage = {this.state.itemsPerPage}
+            currentPage ={this.state.currentPage}
           />
         </div>
       </>
