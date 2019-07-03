@@ -3,7 +3,7 @@ import http from "./httpService";
 // import { apiUrl } from "../config.json";
 import axios from "axios";
 import qs from "qs";
-const apiEndpoint = "http://localhost:3500/login";
+const apiEndpoint = process.env.REACT_APP_API_URL + "/login";
 // const tokenKey = "token";
 
 // http.setJwt(getJwt());
@@ -16,7 +16,7 @@ export async function login(email, password) {
   };
   console.log(email, password);
   const data = await axios.post(
-    "http://localhost:3500/login",
+    process.env.REACT_APP_API_URL + "/login",
     qs.stringify(params)
   );
 

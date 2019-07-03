@@ -45,7 +45,7 @@ import qs from "qs"
 // }
 
 export function getUser(id) {
-  return http.get(`http://localhost:3500/admin/users/${id}`)
+  return http.get(process.env.REACT_APP_API_URL + `/admin/users/${id}`)
 }
 
 export function saveUser(user) {
@@ -56,7 +56,7 @@ export function saveUser(user) {
     console.log(user);
     
 
-    return http.post(`http://localhost:3500/admin/newUser`, qs.stringify({
+    return http.post(process.env.REACT_APP_API_URL + `/admin/newUser`, qs.stringify({
     email: user.email,
     password: user.password,
     emailPassword: user.emailPassword,
@@ -67,7 +67,7 @@ export function saveUser(user) {
   } 
 
   
-  return http.post(`http://localhost:3500/admin/editUser/${user._id}`, qs.stringify({
+  return http.post(process.env.REACT_APP_API_URL + `/admin/editUser/${user._id}`, qs.stringify({
       email: user.email,
       password: user.password,
       emailPassword: user.emailPassword,
@@ -80,7 +80,7 @@ export function saveUser(user) {
 
 export function deleteUser(user) { 
   
-  return http.post(`http://localhost:3500/admin/editUser/${user._id}`, qs.stringify({
+  return http.post(process.env.REACT_APP_API_URL + `/admin/editUser/${user._id}`, qs.stringify({
     email: user.email,
     password: user.password,
     emailPassword: user.emailPassword,
@@ -92,5 +92,5 @@ export function deleteUser(user) {
 }
 
 export default function getAllUsers() {
-  return http.get("http://localhost:3500/admin/users")
+  return http.get(process.env.REACT_APP_API_URL + "/admin/users")
 }

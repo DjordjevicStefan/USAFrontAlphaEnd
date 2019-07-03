@@ -1,9 +1,9 @@
 import http from "./httpService" ;
 
 export function getJobs() {
-  return http.get(`http://localhost:3500/admin/jobs`)
+  return http.get(process.env.REACT_APP_API_URL + `/admin/jobs`)
 }
 
 export  function  getAllWorkorders(){
-  return http.get("http://localhost:3500/admin")
+  return http.get(process.env.REACT_APP_API_URL + "/admin")
 }

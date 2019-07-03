@@ -4,18 +4,18 @@ import qs from "qs"
   
 
 export default function  getAllWorkorders(){
-    return http.get("http://localhost:3500/admin")
+    return http.get(process.env.REACT_APP_API_URL + "/admin")
 }
 
 export function getWorkOrder(workOrderId){
-  return http.get(`http://localhost:3500/admin/workorders/${workOrderId}`);
+  return http.get(process.env.REACT_APP_API_URL + `/admin/workorders/${workOrderId}`);
 } 
 
 export function endJob(jobId){
   let d = new Date();
   let endDate = d.toLocaleString();
   
-  return http.post(`http://localhost:3500/admin/finishJob/${jobId}`, 
+  return http.post(process.env.REACT_APP_API_URL + `/admin/finishJob/${jobId}`, 
    qs.stringify({
      status : "finished" ,
      endDate : endDate
@@ -35,7 +35,7 @@ export function assignJob(jobId, job, vendor, workorder){
   
 
 
-  return http.post(`http://localhost:3500/admin/assignJob/${jobId}` ,
+  return http.post(process.env.REACT_APP_API_URL + `/admin/assignJob/${jobId}` ,
   JSON.stringify({   
       job : {
          id : job._id ,
